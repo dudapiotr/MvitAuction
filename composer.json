@@ -1,0 +1,29 @@
+{
+    "name": "riceri/mvitauction",
+    "description": "A auction module for ZF2. Supports Zend\\Db.",
+    "type": "library",
+    "keywords": [
+        "zf2"
+    ],
+    "homepage": "https://github.com/riceri/mvitauction",
+    "authors": [
+        {
+            "name": "Rickard Eriksson",
+            "email": "rickard@mv-it.se",
+            "homepage": "http://mv-it.se/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*",
+        "zf-commons/zfc-user": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "MVITAuction": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
