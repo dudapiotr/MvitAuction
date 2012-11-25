@@ -3,7 +3,7 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'MVITAuction\Controller\Auction' => 'MVITAuction\Controller\AuctionController',
+            'mvitauction' => 'MVITAuction\Controller\AuctionController',
         ),
     ),
 
@@ -18,7 +18,7 @@ return array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'MVITAuction\Controller\Auction',
+                        'controller' => 'mvitauction',
                         'action'     => 'index',
                     ),
                 ),
