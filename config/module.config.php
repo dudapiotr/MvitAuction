@@ -3,7 +3,7 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'mvitauction' => 'MVITAuction\Controller\AuctionController',
+            'mvitauction' => 'MvitAuction\Controller\AuctionController',
         ),
     ),
 

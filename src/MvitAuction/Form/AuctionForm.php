@@ -1,6 +1,6 @@
 <?php
-// src/MVITAuction/Form/AuctionForm.php:
-namespace MVITAuction\Form;
+// src/MvitAuction/Form/AuctionForm.php:
+namespace MvitAuction\Form;
 
 use Zend\Form\Form;
 

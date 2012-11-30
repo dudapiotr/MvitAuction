@@ -1,11 +1,11 @@
 <?php
-// src/MVITAuction/Controller/AuctionController.php:
-namespace MVITAuction\Controller;
+// src/MvitAuction/Controller/AuctionController.php:
+namespace MvitAuction\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use MVITAuction\Model\Auction;
-use MVITAuction\Form\AuctionForm;
+use MvitAuction\Model\Auction;
+use MvitAuction\Form\AuctionForm;
 
 class AuctionController extends AbstractActionController {
     protected $auctionTable;
@@ -13,7 +13,7 @@ class AuctionController extends AbstractActionController {
     public function getAuctionTable() {
         if (!$this->auctionTable) {
             $sm = $this->getServiceLocator();
-            $this->auctionTable = $sm->get('MVITAuction\Model\AuctionTable');
+            $this->auctionTable = $sm->get('MvitAuction\Model\AuctionTable');
         }
         return $this->auctionTable;
     }
@@ -27,13 +27,13 @@ class AuctionController extends AbstractActionController {
             $auction = new Auction();
             $form->setInputFilter($auction->getInputFilter());
             $form->setData($request->getPost());
-
+echo "!Valid: ".$form->isValid();
             if ($form->isValid()) {
                 $auction->exchangeArray($form->getData());
                 $this->getAuctionTable()->saveAuction($auction);
 
                 // Redirect to list of auctions
-                return $this->redirect()->toRoute('auction');
+                return $this->redirect()->toRoute('mvitauction');
             }
         }
         return array('form' => $form);
@@ -42,9 +42,7 @@ class AuctionController extends AbstractActionController {
     public function editAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('auction', array(
-                'action' => 'add'
-            ));
+            return $this->redirect()->toRoute('mvitauction');
         }
         $auction = $this->getAuctionTable()->getAuction($id);
 
@@ -61,7 +59,7 @@ class AuctionController extends AbstractActionController {
                 $this->getAuctionTable()->saveAuction($auction);
 
                 // Redirect to list of auctions
-                return $this->redirect()->toRoute('auction');
+                return $this->redirect()->toRoute('mvitauction');
             }
         }
 
@@ -80,7 +78,7 @@ class AuctionController extends AbstractActionController {
     public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('auction');
+            return $this->redirect()->toRoute('mvitauction');
         }
 
         $request = $this->getRequest();
@@ -93,7 +91,7 @@ class AuctionController extends AbstractActionController {
             }
 
             // Redirect to list of auctions
-            return $this->redirect()->toRoute('auction');
+            return $this->redirect()->toRoute('mvitauction');
         }
 
         return array(

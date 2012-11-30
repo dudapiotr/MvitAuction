@@ -1,6 +1,6 @@
 <?php
-// src/MVITAuction/Model/MVITAuction.php:
-namespace MVITAuction\Model;
+// src/MvitAuction/Model/MvitAuction.php:
+namespace MvitAuction\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
@@ -59,7 +59,62 @@ class Auction {
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'artist',
+                'name'     => 'owner',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'start',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'stop',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'updated',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'price',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'bid',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'bidcount',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'bidhistory',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -76,9 +131,8 @@ class Auction {
                     ),
                 ),
             )));
-
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'title',
+                'name'     => 'header',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -93,6 +147,31 @@ class Auction {
                             'max'      => 100,
                         ),
                     ),
+                ),
+            )));
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'body',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            )));
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'protection',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'int'),
                 ),
             )));
 

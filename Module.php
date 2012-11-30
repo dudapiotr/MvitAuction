@@ -1,9 +1,9 @@
 <?php
 // Module.php
-namespace MVITAuction;
+namespace MvitAuction;
 
-use MVITAuction\Model\Auction;
-use MVITAuction\Model\AuctionTable;
+use MvitAuction\Model\Auction;
+use MvitAuction\Model\AuctionTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -28,7 +28,7 @@ class Module {
     public function getServiceConfig() {
         return array(
             'factories' => array(
-                'MVITAuction\Model\AuctionTable' => function($sm) {
+                'MvitAuction\Model\AuctionTable' => function($sm) {
                     $tableGateway = $sm->get('AuctionTableGateway');
                     $table = new AuctionTable($tableGateway);
                     return $table;

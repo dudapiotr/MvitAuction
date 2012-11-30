@@ -1,6 +1,6 @@
 <?php
-// src/MVITAuction/Model/MVITAuctionTable.php:
-namespace MVITAuction\Model;
+// src/MvitAuction/Model/MvitAuctionTable.php:
+namespace MvitAuction\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 
@@ -28,8 +28,17 @@ class AuctionTable {
 
     public function saveAuction(Auction $auction) {
         $data = array(
-            'artist' => $auction->artist,
-            'title' => $auction->title,
+            'owner' => $auction->owner,
+            'start' => $auction->start,
+            'stop' => $auction->stop,
+            'updated' => $auction->updated,
+            'price' => $auction->price,
+            'bid' => $auction->bid,
+            'bidcount' => $auction->bidcount,
+            'bidhistory' => $auction->bidhistory,
+            'header' => $auction->header,
+            'body' => $auction->body,
+            'protection' => $auction->protection,
         );
 
         $id = (int)$auction->id;
