@@ -1,0 +1,30 @@
+<?php
+$title = $auction->header;
+$this->headTitle($this->escapeHtml($title));
+?>
+<div class="row">
+  <div class="span10">
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+    <?php echo $this->escapeHtml($auction->body);?>
+  </div>
+  <div class="span2">
+    <dl>
+      <dt>End time:</dt>
+      <dd><?php echo date("Y-m-d H:i", $this->escapeHtml($auction->end_time));?></dd>
+      <dt>Start price:</dt>
+      <dd><?php echo $this->escapeHtml($auction->price);?></dd>
+      <dt>Buyout price:</dt>
+      <dd><?php echo $this->escapeHtml($auction->buyout);?></dd>
+      <dt>Current bid:</dt>
+      <dd><?php echo $this->escapeHtml($auction->bid);?></dd>
+      <dt>Bid history:</dt>
+      <dd>
+        <ul>
+<?php foreach($auction->bid_history as $bid) : ?>
+          <li><?php echo $bid["bid"]; ?> - <?php echo $bid["name"]; ?></li>
+<?php endforeach; ?>
+        </ul>
+      </dd>
+    </dl>
+  </div>
+</div>

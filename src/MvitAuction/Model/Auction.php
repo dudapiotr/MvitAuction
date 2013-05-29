@@ -1,5 +1,4 @@
 <?php
-// src/MvitAuction/Model/MvitAuction.php:
 namespace MvitAuction\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
@@ -10,31 +9,41 @@ use Zend\InputFilter\InputFilterInterface;
 class Auction {
     public $id;
     public $owner;
-    public $start;
-    public $stop;
+    public $category_id;
+    public $category_name;
+    public $category_slug;
+    public $created;
+    public $end_time;
     public $updated;
     public $price;
+    public $buyout;
     public $bid;
-    public $bidcount;
-    public $bidhistory;
+    public $bid_count;
+    public $bid_history;
+    public $slug;
     public $header;
     public $body;
     public $protection;
     protected $inputFilter;
 
     public function exchangeArray($data) {
-        $this->id         = (isset($data['id'])) ? $data['id'] : null;
-        $this->owner      = (isset($data['owner'])) ? $data['owner'] : null;
-        $this->start      = (isset($data['start'])) ? $data['start'] : null;
-        $this->stop       = (isset($data['stop'])) ? $data['stop'] : null;
-        $this->updated    = (isset($data['updated'])) ? $data['updated'] : null;
-        $this->price      = (isset($data['price'])) ? $data['price'] : null;
-        $this->bid        = (isset($data['bid'])) ? $data['bid'] : null;
-        $this->bidcount   = (isset($data['bidcount'])) ? $data['bidcount'] : null;
-        $this->bidhistory = (isset($data['bidhistory'])) ? $data['bidhistory'] : null;
-        $this->header     = (isset($data['header'])) ? $data['header'] : null;
-        $this->body       = (isset($data['body'])) ? $data['body'] : null;
-        $this->protection = (isset($data['protection'])) ? $data['protection'] : null;
+        $this->id             = (isset($data['id'])) ? $data['id'] : null;
+        $this->owner          = (isset($data['owner'])) ? $data['owner'] : null;
+        $this->category_id    = (isset($data['category_id'])) ? $data['category_id'] : null;
+        $this->category_name  = (isset($data['category_name'])) ? $data['category_name'] : null;
+        $this->category_slug  = (isset($data['category_slug'])) ? $data['category_slug'] : null;
+        $this->created        = (isset($data['created'])) ? $data['created'] : null;
+        $this->end_time       = (isset($data['end_time'])) ? $data['end_time'] : null;
+        $this->updated        = (isset($data['updated'])) ? $data['updated'] : null;
+        $this->price          = (isset($data['price'])) ? $data['price'] : null;
+        $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : null;
+        $this->bid            = (isset($data['bid'])) ? $data['bid'] : null;
+        $this->bid_count      = (isset($data['bid_count'])) ? $data['bid_count'] : null;
+        $this->bid_history    = (isset($data['bid_history'])) ? unserialize($data['bid_history']) : null;
+        $this->slug           = (isset($data['slug'])) ? $data['slug'] : null;
+        $this->header         = (isset($data['header'])) ? $data['header'] : null;
+        $this->body           = (isset($data['body'])) ? $data['body'] : null;
+        $this->protection     = (isset($data['protection'])) ? $data['protection'] : null;
     }
 
     public function getArrayCopy() {
@@ -60,22 +69,30 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'owner',
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'start',
-                'required' => true,
+                'name'     => 'category',
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'stop',
+                'name'     => 'created',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'endtime',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
@@ -84,7 +101,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'updated',
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
@@ -93,28 +110,61 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'price',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'int'),
+                'validators' => array(
+                    array(
+                        'name'    => 'float',
+                        'options' => array(
+                            'locale' => 'en_GB'
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'buyout',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name'    => 'float',
+                        'options' => array(
+                            'locale' => 'en_GB'
+                        ),
+                    ),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'bid',
-                'required' => true,
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name'    => 'float',
+                        'options' => array(
+                            'locale' => 'en_GB'
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'bidcount',
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'bidcount',
-                'required' => true,
+                'name'     => 'bidhistory',
+                'required' => false,
                 'filters'  => array(
-                    array('name' => 'int'),
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
                 ),
             )));
+
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'bidhistory',
+                'name'     => 'slug',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -122,15 +172,28 @@ class Auction {
                 ),
                 'validators' => array(
                     array(
-                        'name'    => 'StringLength',
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Please enter a slug!' 
+                            ),
+                        ),
+                    ),
+                    array(
+                        'name' => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 100,
+                            'min' => 3,
+                            'max' => 30,
+                            'messages' => array(
+                                'stringLengthTooShort' => 'Please enter a slug between 3 to 30 character!', 
+                                'stringLengthTooLong' => 'Please enter a slug between 3 to 30 character!' 
+                            ),
                         ),
                     ),
                 ),
             )));
+
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'header',
                 'required' => true,
@@ -140,15 +203,28 @@ class Auction {
                 ),
                 'validators' => array(
                     array(
-                        'name'    => 'StringLength',
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Please enter a name!' 
+                            ),
+                        ),
+                    ),
+                    array(
+                        'name' => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 100,
+                            'min' => 3,
+                            'max' => 30,
+                            'messages' => array(
+                                'stringLengthTooShort' => 'Please enter a name between 3 to 30 character!', 
+                                'stringLengthTooLong' => 'Please enter a name between 3 to 30 character!' 
+                            ),
                         ),
                     ),
                 ),
             )));
+
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'body',
                 'required' => true,
@@ -161,12 +237,17 @@ class Auction {
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 100,
+                            'min'      => 50,
+                            'max'      => 1000,
+                            'messages' => array(
+                                'stringLengthTooShort' => 'Please enter a text between 3 to 30 character!', 
+                                'stringLengthTooLong' => 'Please enter a text between 3 to 30 character!' 
+                            ),
                         ),
                     ),
                 ),
             )));
+
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'protection',
                 'required' => true,

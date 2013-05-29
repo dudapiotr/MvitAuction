@@ -1,9 +1,10 @@
 <?php
-// Module.php
 namespace MvitAuction;
 
 use MvitAuction\Model\Auction;
 use MvitAuction\Model\AuctionTable;
+use MvitAuction\Model\Category;
+use MvitAuction\Model\CategoryTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -28,16 +29,15 @@ class Module {
     public function getServiceConfig() {
         return array(
             'factories' => array(
-                'MvitAuction\Model\AuctionTable' => function($sm) {
-                    $tableGateway = $sm->get('AuctionTableGateway');
-                    $table = new AuctionTable($tableGateway);
+                'MvitAuction\Model\AuctionTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new AuctionTable($dbAdapter);
                     return $table;
                 },
-                'AuctionTableGateway' => function ($sm) {
+                'MvitAuction\Model\CategoryTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Auction());
-                    return new TableGateway('auction', $dbAdapter, null, $resultSetPrototype);
+                    $table     = new CategoryTable($dbAdapter);
+                    return $table;
                 },
             ),
         );

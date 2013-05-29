@@ -1,0 +1,22 @@
+<?php
+// view/mvit-auction/auction/index.phtml:
+
+$title = 'Auction categories';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<table class="table">
+<tr>
+    <th class="header">Name</th>
+    <th class="price">Auctions</th>
+    <th class="options">&nbsp;</th>
+</tr>
+<?php foreach($categories as $category) : ?>
+<tr>
+    <td class="header"><a href="<?php echo $this->url('mvitauction/category', array('slug'=> $category->slug));?>"><?php echo $this->escapeHtml($category->name);?></a></td>
+    <td class="price"><a href="<?php echo $this->url('mvitauction/category', array('slug'=> $category->slug));?>"><?php echo $this->escapeHtml($category->auctions);?></a></td>
+    <td class="options">&nbsp;</td>
+</tr>
+<?php endforeach; ?>
+</table>

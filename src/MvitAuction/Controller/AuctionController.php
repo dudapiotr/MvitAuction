@@ -1,14 +1,15 @@
 <?php
-// src/MvitAuction/Controller/AuctionController.php:
 namespace MvitAuction\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use MvitAuction\Model\Auction;
+use MvitAuction\Model\Category;
 use MvitAuction\Form\AuctionForm;
 
 class AuctionController extends AbstractActionController {
     protected $auctionTable;
+    protected $categoryTable;
 
     public function getAuctionTable() {
         if (!$this->auctionTable) {
@@ -16,6 +17,14 @@ class AuctionController extends AbstractActionController {
             $this->auctionTable = $sm->get('MvitAuction\Model\AuctionTable');
         }
         return $this->auctionTable;
+    }
+
+    public function getCategoryTable() {
+        if (!$this->categoryTable) {
+            $sm = $this->getServiceLocator();
+            $this->categoryTable = $sm->get('MvitAuction\Model\CategoryTable');
+        }
+        return $this->categoryTable;
     }
 
     public function addAction() {
@@ -27,7 +36,6 @@ class AuctionController extends AbstractActionController {
             $auction = new Auction();
             $form->setInputFilter($auction->getInputFilter());
             $form->setData($request->getPost());
-echo "!Valid: ".$form->isValid();
             if ($form->isValid()) {
                 $auction->exchangeArray($form->getData());
                 $this->getAuctionTable()->saveAuction($auction);
@@ -44,7 +52,7 @@ echo "!Valid: ".$form->isValid();
         if (!$id) {
             return $this->redirect()->toRoute('mvitauction');
         }
-        $auction = $this->getAuctionTable()->getAuction($id);
+        $auction = $this->getAuctionTable()->getAuctionById($id);
 
         $form  = new AuctionForm();
         $form->bind($auction);
@@ -54,10 +62,8 @@ echo "!Valid: ".$form->isValid();
         if ($request->isPost()) {
             $form->setInputFilter($auction->getInputFilter());
             $form->setData($request->getPost());
-
             if ($form->isValid()) {
                 $this->getAuctionTable()->saveAuction($auction);
-
                 // Redirect to list of auctions
                 return $this->redirect()->toRoute('mvitauction');
             }
@@ -71,7 +77,16 @@ echo "!Valid: ".$form->isValid();
 
     public function indexAction() {
         return new ViewModel(array(
-            'auctions' => $this->getAuctionTable()->fetchAll(),
+            'categories' => $this->getCategoryTable()->fetchAll(),
+        ));
+    }
+
+    public function categoryAction() {
+        $slug = (string) $this->params()->fromRoute('slug', 0);
+        $category = $this->getCategoryTable()->getCategoryBySlug($slug);
+        return new ViewModel(array(
+            'auctions' => $this->getAuctionTable()->getAuctionByCategoryId($category->id),
+            'category' => $category,
         ));
     }
 
@@ -98,5 +113,16 @@ echo "!Valid: ".$form->isValid();
             'id'      => $id,
             'auction' => $this->getAuctionTable()->getAuction($id)
         );
+    }
+
+    public function viewAction() {
+        $slug = (string) $this->params()->fromRoute('slug', 0);
+        if (!$slug) {
+            return $this->redirect()->toRoute('mvitauction');
+        }
+
+        return new ViewModel(array(
+            'auction' => $this->getAuctionTable()->getAuctionBySlug($slug),
+        ));
     }
 }

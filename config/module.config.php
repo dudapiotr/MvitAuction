@@ -1,5 +1,4 @@
 <?php
-// conﬁg/module.config.php:
 return array(
     'controllers' => array(
         'invokables' => array(
@@ -10,16 +9,90 @@ return array(
     'router' => array(
         'routes' => array(
             'mvitauction' => array(
-                'type'    => 'segment',
+                'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/auctions[/:action][/:id]',
-                    'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ),
+                    'route'    => '/auctions',
                     'defaults' => array(
                         'controller' => 'mvitauction',
                         'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'category' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/c/:slug',
+                            'constraints' => array(
+                               'slug' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'mvitauction',
+                                'action'     => 'category',
+                            ),
+                        ),
+                    ),
+                    'view' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/v/:slug',
+                            'constraints' => array(
+                               'slug' => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'mvitauction',
+                                'action'     => 'view',
+                            ),
+                        ),
+                    ),
+                    'add' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/a',
+                            'defaults' => array(
+                                'controller' => 'mvitauction',
+                                'action'     => 'add',
+                            ),
+                        ),
+                    ),
+                    'bid' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/b[/:slug]',
+                            'constraints' => array(
+                               'slug' => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'mvitauction',
+                                'action'     => 'bid',
+                            ),
+                        ),
+                    ),
+                    'edit' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/e[/:id]',
+                            'constraints' => array(
+                               'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'mvitauction',
+                                'action'     => 'edit',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/d[/:id]',
+                            'constraints' => array(
+                               'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'mvitauction',
+                                'action'     => 'delete',
+                            ),
+                        ),
                     ),
                 ),
             ),

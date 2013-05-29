@@ -1,0 +1,23 @@
+<?php
+
+$title = $category->name.' Auctions';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p><?php if ($this->zfcUserIdentity()) { ?><a href="<?php echo $this->url('mvitauction/add');?>">Create a new auction</a><?php } ?></p>
+
+<table class="table">
+<tr>
+    <th class="header">Name</th>
+    <th class="price">Price</th>
+    <th class="options">&nbsp;</th>
+</tr>
+<?php foreach($auctions as $auction) : ?>
+<tr>
+    <td class="header"><a href="<?php echo $this->url('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));?>"><?php echo $this->escapeHtml($auction->header);?></a></td>
+    <td class="price"><a href="<?php echo $this->url('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));?>"><?php echo $this->escapeHtml($auction->price);?></a></td>
+    <td class="options"><a class="button" href="<?php echo $this->url('mvitauction/bid', array('slug' => $auction->slug));?>"><span>Place bid</span></a></td>
+</tr>
+<?php endforeach; ?>
+</table>

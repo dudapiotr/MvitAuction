@@ -1,12 +1,10 @@
 <?php
-// src/MvitAuction/Form/AuctionForm.php:
 namespace MvitAuction\Form;
 
 use Zend\Form\Form;
 
 class AuctionForm extends Form {
     public function __construct($name = null) {
-        // we want to ignore the name passed
         parent::__construct('auction');
         $this->setAttribute('method', 'post');
         $this->add(array(
@@ -25,21 +23,21 @@ class AuctionForm extends Form {
             ),
         ));
         $this->add(array(
-            'name' => 'start',
+            'name' => 'created',
             'attributes' => array(
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Start',
+                'label' => 'Created',
             ),
         ));
         $this->add(array(
-            'name' => 'stop',
+            'name' => 'endtime',
             'attributes' => array(
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Stop',
+                'label' => 'End date',
             ),
         ));
         $this->add(array(
@@ -58,6 +56,15 @@ class AuctionForm extends Form {
             ),
             'options' => array(
                 'label' => 'Price',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'buyout',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+            'options' => array(
+                'label' => 'Buyout',
             ),
         ));
         $this->add(array(
@@ -99,7 +106,7 @@ class AuctionForm extends Form {
         $this->add(array(
             'name' => 'body',
             'attributes' => array(
-                'type'  => 'text',
+                'type'  => 'textarea',
             ),
             'options' => array(
                 'label' => 'Body',
