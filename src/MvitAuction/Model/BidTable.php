@@ -24,8 +24,7 @@ class BidTable extends AbstractTableGateway  {
                                        'bid' => 'AB_Bid',
                                        'time' => 'AB_Time',
                                       )
-                                )
-		       );
+                                );
             });
         return $resultSet;
     }
@@ -49,7 +48,7 @@ class BidTable extends AbstractTableGateway  {
         return $row;
     }
 
-    public function getBidByAuction($auction) {
+    public function getBidsByAuction($auction) {
         $auction = (int) $auction;
         $resultSet = $this->select(function (Select $select) use ($auction) {
                 $select->columns(array('id' => 'AB_Id',
@@ -61,14 +60,10 @@ class BidTable extends AbstractTableGateway  {
                                 )
                        ->where(array('AB_Auction' => $auction));
             });
-        $row = $resultSet->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $slug");
-        }
-        return $row;
+        return $resultSet;
     }
 
-    public function getBidByUser($user) {
+    public function getBidsByUser($user) {
         $user = (int) $user;
         $resultSet = $this->select(function (Select $select) use ($user) {
                 $select->columns(array('id' => 'AB_Id',
@@ -80,29 +75,25 @@ class BidTable extends AbstractTableGateway  {
                                 )
                        ->where(array('AB_User' => $user));
             });
-        $row = $resultSet->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $slug");
-        }
-        return $row;
+        return $resultSet;
     }
 
     public function saveBid(Bid $bid) {
         $data = array(
-            'AB_Id'       => $bid->id,
-            'AB_Auction'   => $bid->auction,
-            'AB_User'     => $bid->user,
+            'AB_Id'      => $bid->id,
+            'AB_Auction' => $bid->auction,
+            'AB_User'    => $bid->user,
             'AB_Bid'     => $bid->bid,
-            'AB_Auctions' => $bid->time,
+            'AB_Time'    => $bid->time,
 
         );
 
         $id = (int) $bid->id;
         if ($id == 0) {
-            $this->tableGateway->insert($data);
+            $this->insert($data);
         } else {
             if ($this->getBidById($id)) {
-                $this->tableGateway->update($data, array('AB_Id' => $id));
+                $this->update($data, array('AB_Id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
             }
@@ -110,7 +101,6 @@ class BidTable extends AbstractTableGateway  {
     }
 
     public function deleteAuction($id) {
-        $this->tableGateway->delete(array('AB_Id' => $id));
+        $this->delete(array('AB_Id' => $id));
     }
 }
-

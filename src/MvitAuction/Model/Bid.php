@@ -17,8 +17,8 @@ class Bid {
     public function exchangeArray($data) {
         $this->id      = (isset($data['id'])) ? $data['id'] : null;
         $this->auction = (isset($data['auction'])) ? $data['auction'] : 0;
-        $this->user    = (isset($data['user'])) ? $data['user'] : null;
-        $this->bid     = (isset($data['bid'])) ? $data['bid'] : null;
+        $this->user    = (isset($data['user'])) ? $data['user'] : 0;
+        $this->bid     = (isset($data['bid'])) ? $data['bid'] : 0;
         $this->time    = (isset($data['time'])) ? $data['time'] : 0;
     }
 
@@ -62,8 +62,8 @@ class Bid {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'bid',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'int'),
+                'validators' => array(
+                    array('name' => 'Float'),
                 ),
             )));
 

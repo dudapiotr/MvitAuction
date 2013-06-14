@@ -16,7 +16,7 @@ class AuctionTable extends AbstractTableGateway  {
         $this->initialize();
     }
 
-    public function fetchAll() {
+    public function fetchAll($activeOnly = true) {
         $resultSet = $this->select(function (Select $select) {
                 $select->columns(array('id' => 'A_Id',
                                        'owner' => 'A_Owner',
@@ -36,6 +36,9 @@ class AuctionTable extends AbstractTableGateway  {
                                 )
                        ->join('auction_category', 'auction.A_CategoryId = auction_category.AC_Id', array('category_name' => 'AC_Name', 'category_slug' => 'AC_Slug',))
                        ->order('auction.A_EndTime DESC')->limit(30);
+		if ($activeOnly == true) {
+                    $select->where('A_EndTime > ?', time());
+		}
             });
         return $resultSet;
     }
@@ -100,9 +103,9 @@ class AuctionTable extends AbstractTableGateway  {
         return $row;
     }
 
-    public function getAuctionByCategoryId($id) {
+    public function getAuctionByCategoryId($id = 0, $activeOnly = true) {
         $id = (int) $id;
-        $rowset = $this->select(function (Select $select) use ($id) {
+        $rowset = $this->select(function (Select $select) use ($id, $activeOnly) {
                 $select->columns(array('id' => 'A_Id',
                                        'owner' => 'A_Owner',
                                        'category_id' => 'A_CategoryId',
@@ -122,6 +125,9 @@ class AuctionTable extends AbstractTableGateway  {
                                 )
                        ->join('auction_category', 'auction.A_CategoryId = auction_category.AC_Id', array('category_name' => 'AC_Name', 'category_slug' => 'AC_Slug',))
                        ->where(array('A_CategoryId' => $id));
+                if ($activeOnly == false) {
+                    $select->where('A_EndTime < ?', time());
+                }
             });
         return $rowset;
     }

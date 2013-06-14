@@ -1,4 +1,11 @@
+<?php if(count($flashMessages)) { ?>
+<ul>
+    <?php foreach ($flashMessages as $msg) : ?>
+    <li><?php echo $msg; ?></li>
+    <?php endforeach; ?>
+</ul>
 <?php
+}
 $title = $auction->header;
 $this->headTitle($this->escapeHtml($title));
 ?>
@@ -13,18 +20,38 @@ $this->headTitle($this->escapeHtml($title));
       <dd><?php echo date("Y-m-d H:i", $this->escapeHtml($auction->end_time));?></dd>
       <dt>Start price:</dt>
       <dd><?php echo $this->escapeHtml($auction->price);?></dd>
+<?php if ($auction->buyout) { ?>
       <dt>Buyout price:</dt>
       <dd><?php echo $this->escapeHtml($auction->buyout);?></dd>
+<?php } ?>
+<?php if (count($bids) > 0) { ?>
       <dt>Current bid:</dt>
-      <dd><?php echo $this->escapeHtml($auction->bid);?></dd>
+      <dd><?php echo $this->escapeHtml(count($bids));?></dd>
+<?php } ?>
+      <dt>Make your bid</dt>
+      <dd>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('mvitauction/bid', array('action' => 'bid', 'slug' => $auction->slug,)));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('bid'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+      </dd>
+<?php if ($auction->bid_history) { ?>
       <dt>Bid history:</dt>
       <dd>
         <ul>
-<?php foreach($auction->bid_history as $bid) : ?>
-          <li><?php echo $bid["bid"]; ?> - <?php echo $bid["name"]; ?></li>
+<?php foreach($bids as $bid) : ?>
+          <li><?php echo $bid->bid; ?> - <?php echo $bid->user; ?></li>
 <?php endforeach; ?>
         </ul>
       </dd>
+<?php } ?>
     </dl>
   </div>
 </div>

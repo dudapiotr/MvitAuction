@@ -3,6 +3,8 @@ namespace MvitAuction;
 
 use MvitAuction\Model\Auction;
 use MvitAuction\Model\AuctionTable;
+use MvitAuction\Model\Bid;
+use MvitAuction\Model\BidTable;
 use MvitAuction\Model\Category;
 use MvitAuction\Model\CategoryTable;
 use Zend\Db\ResultSet\ResultSet;
@@ -32,6 +34,11 @@ class Module {
                 'MvitAuction\Model\AuctionTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new AuctionTable($dbAdapter);
+                    return $table;
+                },
+                'MvitAuction\Model\BidTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new BidTable($dbAdapter);
                     return $table;
                 },
                 'MvitAuction\Model\CategoryTable' =>  function($sm) {
