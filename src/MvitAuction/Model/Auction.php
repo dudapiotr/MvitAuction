@@ -10,6 +10,7 @@ class Auction {
     public $id;
     public $owner;
     public $category_id;
+    public $currency_id;
     public $category_name;
     public $category_slug;
     public $created;
@@ -19,7 +20,6 @@ class Auction {
     public $buyout;
     public $bid;
     public $bid_count;
-    public $bid_history;
     public $slug;
     public $header;
     public $body;
@@ -30,6 +30,7 @@ class Auction {
         $this->id             = (isset($data['id'])) ? $data['id'] : null;
         $this->owner          = (isset($data['owner'])) ? $data['owner'] : null;
         $this->category_id    = (isset($data['category_id'])) ? $data['category_id'] : null;
+        $this->currency_id    = (isset($data['currency_id'])) ? $data['currency_id'] : null;
         $this->category_name  = (isset($data['category_name'])) ? $data['category_name'] : null;
         $this->category_slug  = (isset($data['category_slug'])) ? $data['category_slug'] : null;
         $this->created        = (isset($data['created'])) ? $data['created'] : null;
@@ -39,7 +40,6 @@ class Auction {
         $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : null;
         $this->bid            = (isset($data['bid'])) ? $data['bid'] : null;
         $this->bid_count      = (isset($data['bid_count'])) ? $data['bid_count'] : null;
-        $this->bid_history    = (isset($data['bid_history'])) ? unserialize($data['bid_history']) : null;
         $this->slug           = (isset($data['slug'])) ? $data['slug'] : null;
         $this->header         = (isset($data['header'])) ? $data['header'] : null;
         $this->body           = (isset($data['body'])) ? $data['body'] : null;
@@ -151,15 +151,6 @@ class Auction {
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'int'),
-                ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'bidhistory',
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
                 ),
             )));
 

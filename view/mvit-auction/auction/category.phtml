@@ -10,14 +10,20 @@ $this->headTitle($title);
 <table class="table">
 <tr>
     <th class="header">Name</th>
-    <th class="price">Price</th>
-    <th class="options">&nbsp;</th>
+	<th class="price">Price</th>
+    <th class="bids">Bids</th>
 </tr>
 <?php foreach($auctions as $auction) : ?>
 <tr>
     <td class="header"><a href="<?php echo $this->url('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));?>"><?php echo $this->escapeHtml($auction->header);?></a></td>
-    <td class="price"><a href="<?php echo $this->url('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));?>"><?php echo $this->escapeHtml($auction->price);?></a></td>
-    <td class="options"><a class="button" href="<?php echo $this->url('mvitauction/bid', array('slug' => $auction->slug));?>"><span>Place bid</span></a></td>
+    <td class="price"><a href="<?php echo $this->url('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));?>"><?php
+if ($auction->bid_count > 0) {
+    echo $this->escapeHtml($auction->bid);
+} else {
+    echo $this->escapeHtml($auction->price);
+}
+?></a></td>
+    <td class="bids"><a href="<?php echo $this->url('mvitauction/bid', array('slug' => $auction->slug));?>"><?php echo $this->escapeHtml($auction->bid_count);?></a></td>
 </tr>
 <?php endforeach; ?>
 </table>

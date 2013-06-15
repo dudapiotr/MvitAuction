@@ -2,10 +2,10 @@
 namespace MvitAuction\Model;
 
 use Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Select;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
-use Zend\Db\Sql\Expression;
 
 class CategoryTable extends AbstractTableGateway  {
     protected $table = 'auction_category';
@@ -19,13 +19,12 @@ class CategoryTable extends AbstractTableGateway  {
 
     public function fetchAll() {
         $resultSet = $this->select(function (Select $select) {
-               $subquery = "(SELECT COUNT(*) FROM  auction WHERE auction.A_CategoryId = auction_category.AC_Id)";
-               $select->columns(array('id' => 'AC_Id',
+                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id)";
+                $select->columns(array('id' => 'AC_Id',
                                        'parent' => 'AC_Parent',
                                        'name' => 'AC_Name',
                                        'slug' => 'AC_Slug',
-#                                       'auctions' => 'AC_Auctions',
-				       'auctions' => new Expression ($subquery),
+                                       'auctions' => new Expression ($subquery),
                                        'visible' => 'AC_Visible',
                                       )
                                 )
@@ -37,11 +36,12 @@ class CategoryTable extends AbstractTableGateway  {
     public function getCategoryById($id) {
         $id = (int) $id;
         $resultSet = $this->select(function (Select $select) use ($id) {
+                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id)";
                 $select->columns(array('id' => 'AC_Id',
                                        'parent' => 'AC_Parent',
                                        'name' => 'AC_Name',
                                        'slug' => 'AC_Slug',
-                                       'auctions' => 'AC_Auctions',
+                                       'auctions' => new Expression ($subquery),
                                        'visible' => 'AC_Visible',
                                       )
                                 )
@@ -57,11 +57,12 @@ class CategoryTable extends AbstractTableGateway  {
     public function getCategoryBySlug($slug) {
         $slug = (string) $slug;
         $resultSet = $this->select(function (Select $select) use ($slug) {
+                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id)";
                 $select->columns(array('id' => 'AC_Id',
                                        'parent' => 'AC_Parent',
                                        'name' => 'AC_Name',
                                        'slug' => 'AC_Slug',
-                                       'auctions' => 'AC_Auctions',
+                                       'auctions' => new Expression ($subquery),
                                        'visible' => 'AC_Visible',
                                       )
                                 )
@@ -80,7 +81,6 @@ class CategoryTable extends AbstractTableGateway  {
             'AC_Parent'   => $category->parent,
             'AC_Name'     => $category->name,
             'AC_Slug'     => $category->slug,
-            'AC_Auctions' => $category->auctions,
             'AC_Visible'  => $category->visible,
 
         );
