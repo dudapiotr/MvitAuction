@@ -86,7 +86,7 @@ class AuctionController extends AbstractActionController {
         return array(
             'id' => $id,
             'form' => $form,
-	    'flashMessages' => $this->flashMessenger()->getMessages(),
+            'flashMessages' => $this->flashMessenger()->getMessages(),
         );
     }
 
@@ -105,11 +105,11 @@ class AuctionController extends AbstractActionController {
             $form->setInputFilter($bid->getInputFilter());
             $form->setData($request->getPost());
             if ($form->isValid()) {
-	        $bid->auction = $auction->id;
-		$bid->user = $this->zfcUserAuthentication()->getIdentity()->getId();
-		$bid->time = time();
+                $bid->auction = $auction->id;
+                $bid->user = $this->zfcUserAuthentication()->getIdentity()->getId();
+                $bid->time = time();
                 $this->getBidTable()->saveBid($bid);
-		$this->flashMessenger()->addMessage('Bid accepted!');
+                $this->flashMessenger()->addMessage('Bid accepted!');
             }
         }
         return $this->redirect()->toRoute('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));
@@ -150,9 +150,9 @@ class AuctionController extends AbstractActionController {
         }
 
         return array(
-            'id'      => $id,
+            'id' => $id,
             'auction' => $this->getAuctionTable()->getAuction($id),
-	    'flashMessages' => $this->flashMessenger()->getMessages(),
+            'flashMessages' => $this->flashMessenger()->getMessages(),
         );
     }
 
@@ -170,9 +170,9 @@ class AuctionController extends AbstractActionController {
 
         return new ViewModel(array(
             'auction' => $auction,
-	    'bids' => $this->getBidTable()->getBidsByAuction($auction->id),
+            'bids' => $this->getBidTable()->getBidsByAuction($auction->id),
             'form' => $form,
-	    'flashMessages' => $this->flashMessenger()->getMessages(),
+            'flashMessages' => $this->flashMessenger()->getMessages(),
         ));
     }
 }
