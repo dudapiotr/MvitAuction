@@ -17,11 +17,13 @@ $this->headTitle($title);
 <tr>
     <td class="header"><a href="<?php echo $this->url('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));?>"><?php echo $this->escapeHtml($auction->header);?></a></td>
     <td class="price"><a href="<?php echo $this->url('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));?>"><?php
+echo $this->escapeHtml($currencies[$auction->currency_id]->before);
 if ($auction->bid_count > 0) {
     echo $this->escapeHtml($auction->bid);
 } else {
     echo $this->escapeHtml($auction->price);
 }
+echo $this->escapeHtml($currencies[$auction->currency_id]->after);
 ?></a></td>
     <td class="bids"><a href="<?php echo $this->url('mvitauction/bid', array('slug' => $auction->slug));?>"><?php echo $this->escapeHtml($auction->bid_count);?></a></td>
 </tr>

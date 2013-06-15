@@ -133,7 +133,8 @@ class AuctionTable extends AbstractTableGateway  {
                                       )
                                 )
                        ->join('auction_category', 'auction.A_CategoryId = auction_category.AC_Id', array('category_name' => 'AC_Name', 'category_slug' => 'AC_Slug',))
-                       ->where(array('A_CategoryId' => $id));
+                       ->where(array('A_CategoryId' => $id))
+                       ->order('auction.A_EndTime DESC');
                 if ($activeOnly == false) {
                     $select->where('A_EndTime < ?', time());
                 }

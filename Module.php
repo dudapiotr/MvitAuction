@@ -7,6 +7,8 @@ use MvitAuction\Model\Bid;
 use MvitAuction\Model\BidTable;
 use MvitAuction\Model\Category;
 use MvitAuction\Model\CategoryTable;
+use MvitAuction\Model\Currency;
+use MvitAuction\Model\CurrencyTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -44,6 +46,11 @@ class Module {
                 'MvitAuction\Model\CategoryTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new CategoryTable($dbAdapter);
+                    return $table;
+                },
+                'MvitAuction\Model\CurrencyTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new CurrencyTable($dbAdapter);
                     return $table;
                 },
             ),

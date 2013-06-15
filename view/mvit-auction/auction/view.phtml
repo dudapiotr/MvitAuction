@@ -19,14 +19,14 @@ $this->headTitle($this->escapeHtml($title));
       <dt>End time:</dt>
       <dd><?php echo date("Y-m-d H:i", $this->escapeHtml($auction->end_time));?></dd>
       <dt>Start price:</dt>
-      <dd><?php echo $this->escapeHtml($auction->price);?></dd>
+      <dd><?php echo $this->escapeHtml($currency->before).$this->escapeHtml($auction->price).$this->escapeHtml($currency->after);?></dd>
 <?php if ($auction->buyout) { ?>
       <dt>Buyout price:</dt>
-      <dd><?php echo $this->escapeHtml($auction->buyout);?></dd>
+      <dd><?php echo $this->escapeHtml($currency->before).$this->escapeHtml($auction->buyout).$this->escapeHtml($currency->after);?></dd>
 <?php } ?>
 <?php if (count($bids) > 0) { ?>
       <dt>Current bid:</dt>
-      <dd><?php echo $this->escapeHtml(count($bids));?></dd>
+      <dd><?php echo $this->escapeHtml($currency->before).$bids->current()->bid.$this->escapeHtml($currency->after);?></dd>
 <?php } ?>
       <dt>Make your bid</dt>
       <dd>

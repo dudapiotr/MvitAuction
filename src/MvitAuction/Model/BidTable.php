@@ -58,7 +58,8 @@ class BidTable extends AbstractTableGateway  {
                                        'time' => 'AB_Time',
                                       )
                                 )
-                       ->where(array('AB_Auction' => $auction));
+                       ->where(array('AB_Auction' => $auction))
+                       ->order('auction_bid.AB_Bid DESC');
             });
         return $resultSet;
     }
@@ -100,7 +101,7 @@ class BidTable extends AbstractTableGateway  {
         }
     }
 
-    public function deleteAuction($id) {
+    public function deleteBid($id) {
         $this->delete(array('AB_Id' => $id));
     }
 }

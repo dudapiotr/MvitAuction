@@ -13,6 +13,7 @@ class AuctionController extends AbstractActionController {
     protected $auctionTable;
     protected $bidTable;
     protected $categoryTable;
+    protected $currencyTable;
 
     public function getAuctionTable() {
         if (!$this->auctionTable) {
@@ -36,6 +37,14 @@ class AuctionController extends AbstractActionController {
             $this->categoryTable = $sm->get('MvitAuction\Model\CategoryTable');
         }
         return $this->categoryTable;
+    }
+
+    public function getCurrencyTable() {
+        if (!$this->currencyTable) {
+            $sm = $this->getServiceLocator();
+            $this->currencyTable = $sm->get('MvitAuction\Model\CurrencyTable');
+        }
+        return $this->currencyTable;
     }
 
     public function addAction() {
@@ -124,8 +133,13 @@ class AuctionController extends AbstractActionController {
     public function categoryAction() {
         $slug = (string) $this->params()->fromRoute('slug', 0);
         $category = $this->getCategoryTable()->getCategoryBySlug($slug);
+        $currencies = "";
+        foreach ($this->getCurrencyTable()->fetchAll() as $currency) {
+            $currencies[$currency->id] = $currency;
+        }
         return new ViewModel(array(
             'auctions' => $this->getAuctionTable()->getAuctionByCategoryId($category->id),
+            'currencies' => $currencies,
             'category' => $category,
         ));
     }
@@ -170,6 +184,7 @@ class AuctionController extends AbstractActionController {
 
         return new ViewModel(array(
             'auction' => $auction,
+            'currency' => $this->getCurrencyTable()->getCurrencyById($auction->currency_id),
             'bids' => $this->getBidTable()->getBidsByAuction($auction->id),
             'form' => $form,
             'flashMessages' => $this->flashMessenger()->getMessages(),
