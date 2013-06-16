@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `auction` (
   `A_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `A_Owner` int(11) unsigned NOT NULL,
+  `A_UserId` int(11) unsigned NOT NULL,
   `A_CategoryId` int(5) unsigned NOT NULL,
   `A_CurrencyId` int(5) unsigned NOT NULL,
   `A_Created` int(11) unsigned NOT NULL,
@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS `auction` (
 
 CREATE TABLE IF NOT EXISTS `auction_bid` (
   `AB_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `AB_Auction` int(11) unsigned NOT NULL,
-  `AB_User` int(11) unsigned NOT NULL,
+  `AB_AuctionId` int(11) unsigned NOT NULL,
+  `AB_UserId` int(11) unsigned NOT NULL,
   `AB_Bid` float unsigned NOT NULL,
   `AB_Time` int(11) unsigned NOT NULL,
   PRIMARY KEY (`AB_Id`),
