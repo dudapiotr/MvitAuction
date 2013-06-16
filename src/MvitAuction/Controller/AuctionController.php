@@ -114,8 +114,8 @@ class AuctionController extends AbstractActionController {
             $form->setInputFilter($bid->getInputFilter());
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $bid->auction = $auction->id;
-                $bid->user = $this->zfcUserAuthentication()->getIdentity()->getId();
+                $bid->auction_id = $auction->id;
+                $bid->user_id = $this->zfcUserAuthentication()->getIdentity()->getId();
                 $bid->time = time();
                 $this->getBidTable()->saveBid($bid);
                 $this->flashMessenger()->addMessage('Bid accepted!');
