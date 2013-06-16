@@ -19,10 +19,10 @@ class AuctionTable extends AbstractTableGateway  {
 
     public function fetchAll($activeOnly = true) {
         $resultSet = $this->select(function (Select $select) {
-                $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_Auction = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
-                $subquerycount = "(SELECT COUNT(*) FROM auction_bid WHERE auction_bid.AB_Auction = auction.A_Id)";
+                $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
+                $subquerycount = "(SELECT COUNT(*) FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id)";
                 $select->columns(array('id' => 'A_Id',
-                                       'owner' => 'A_Owner',
+                                       'user_id' => 'A_UserId',
                                        'category_id' => 'A_CategoryId',
                                        'currency_id' => 'A_CurrencyId',
                                        'created' => 'A_Created',
@@ -49,10 +49,10 @@ class AuctionTable extends AbstractTableGateway  {
     public function getAuctionById($id) {
         $id = (int) $id;
         $rowset = $this->select(function (Select $select) use ($id) {
-                $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_Auction = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
-                $subquerycount = "(SELECT COUNT(*) FROM auction_bid WHERE auction_bid.AB_Auction = auction.A_Id)";
+                $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
+                $subquerycount = "(SELECT COUNT(*) FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id)";
                 $select->columns(array('id' => 'A_Id',
-                                       'owner' => 'A_Owner',
+                                       'user_id' => 'A_UserId',
                                        'category_id' => 'A_CategoryId',
                                        'currency_id' => 'A_CurrencyId',
                                        'created' => 'A_Created',
@@ -81,10 +81,10 @@ class AuctionTable extends AbstractTableGateway  {
     public function getAuctionBySlug($slug) {
         $slug = (string) $slug;
         $rowset = $this->select(function (Select $select) use ($slug) {
-                $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_Auction = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
-                $subquerycount = "(SELECT COUNT(*) FROM auction_bid WHERE auction_bid.AB_Auction = auction.A_Id)";
+                $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
+                $subquerycount = "(SELECT COUNT(*) FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id)";
                 $select->columns(array('id' => 'A_Id',
-                                       'owner' => 'A_Owner',
+                                       'user_id' => 'A_UserId',
                                        'category_id' => 'A_CategoryId',
                                        'currency_id' => 'A_CurrencyId',
                                        'created' => 'A_Created',
@@ -113,10 +113,10 @@ class AuctionTable extends AbstractTableGateway  {
     public function getAuctionByCategoryId($id = 0, $activeOnly = true) {
         $id = (int) $id;
         $rowset = $this->select(function (Select $select) use ($id, $activeOnly) {
-                $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_Auction = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
-                $subquerycount = "(SELECT COUNT(*) FROM auction_bid WHERE auction_bid.AB_Auction = auction.A_Id)";
+                $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
+                $subquerycount = "(SELECT COUNT(*) FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id)";
                 $select->columns(array('id' => 'A_Id',
-                                       'owner' => 'A_Owner',
+                                       'user_id' => 'A_UserId',
                                        'category_id' => 'A_CategoryId',
                                        'currency_id' => 'A_CurrencyId',
                                        'created' => 'A_Created',
@@ -144,8 +144,8 @@ class AuctionTable extends AbstractTableGateway  {
 
     public function saveAuction(Auction $auction) {
         $data = array(
-            'A_Owner' => $auction->owner,
-            'A_Category' => $auction->category_id,
+            'A_UserId' => $auction->user_id,
+            'A_CategoryId' => $auction->category_id,
             'A_CurrencyId' => $auction->currency_id,
             'A_Created' => $auction->created,
             'A_Endtime' => $auction->endtime,

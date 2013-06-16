@@ -42,12 +42,12 @@ echo $this->formSubmit($form->get('submit'));
 echo $this->form()->closeTag();
 ?>
       </dd>
-<?php if ($auction->bid_history) { ?>
+<?php if ($auction->bid_count) { ?>
       <dt>Bid history:</dt>
       <dd>
         <ul>
 <?php foreach($bids as $bid) : ?>
-          <li><?php echo $bid->bid; ?> - <?php echo $bid->user; ?></li>
+          <li><?php echo $this->escapeHtml($currency->before).$bid->bid.$this->escapeHtml($currency->after); ?> - <?php echo $bid->username; ?></li>
 <?php endforeach; ?>
         </ul>
       </dd>

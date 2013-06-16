@@ -8,7 +8,7 @@ use Zend\InputFilter\InputFilterInterface;
 
 class Auction {
     public $id;
-    public $owner;
+    public $user_id;
     public $category_id;
     public $currency_id;
     public $category_name;
@@ -28,7 +28,7 @@ class Auction {
 
     public function exchangeArray($data) {
         $this->id             = (isset($data['id'])) ? $data['id'] : null;
-        $this->owner          = (isset($data['owner'])) ? $data['owner'] : null;
+        $this->user_id        = (isset($data['user_id'])) ? $data['user_id'] : null;
         $this->category_id    = (isset($data['category_id'])) ? $data['category_id'] : null;
         $this->currency_id    = (isset($data['currency_id'])) ? $data['currency_id'] : null;
         $this->category_name  = (isset($data['category_name'])) ? $data['category_name'] : null;
@@ -68,7 +68,7 @@ class Auction {
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'owner',
+                'name'     => 'user_id',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'int'),
@@ -76,7 +76,15 @@ class Auction {
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'category',
+                'name'     => 'category_id',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'currency_id',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'int'),

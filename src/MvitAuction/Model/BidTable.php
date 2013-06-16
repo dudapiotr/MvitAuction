@@ -19,12 +19,13 @@ class BidTable extends AbstractTableGateway  {
     public function fetchAll() {
         $resultSet = $this->select(function (Select $select) {
                 $select->columns(array('id' => 'AB_Id',
-                                       'auction' => 'AB_Auction',
-                                       'user' => 'AB_User',
+                                       'auction_id' => 'AB_AuctionId',
+                                       'user_id' => 'AB_UserId',
                                        'bid' => 'AB_Bid',
                                        'time' => 'AB_Time',
                                       )
-                                );
+                                )
+                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'display_name',));
             });
         return $resultSet;
     }
@@ -33,12 +34,13 @@ class BidTable extends AbstractTableGateway  {
         $id = (int) $id;
         $resultSet = $this->select(function (Select $select) use ($id) {
                 $select->columns(array('id' => 'AB_Id',
-                                       'auction' => 'AB_Auction',
-                                       'user' => 'AB_User',
+                                       'auction_id' => 'AB_AuctionId',
+                                       'user_id' => 'AB_UserId',
                                        'bid' => 'AB_Bid',
                                        'time' => 'AB_Time',
                                       )
                                 )
+                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'display_name',))
                        ->where(array('AB_Id' => $id));
             });
         $row = $resultSet->current();
@@ -52,13 +54,14 @@ class BidTable extends AbstractTableGateway  {
         $auction = (int) $auction;
         $resultSet = $this->select(function (Select $select) use ($auction) {
                 $select->columns(array('id' => 'AB_Id',
-                                       'auction' => 'AB_Auction',
-                                       'user' => 'AB_User',
+                                       'auction_id' => 'AB_AuctionId',
+                                       'user_id' => 'AB_UserId',
                                        'bid' => 'AB_Bid',
                                        'time' => 'AB_Time',
                                       )
                                 )
-                       ->where(array('AB_Auction' => $auction))
+                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'display_name',))
+                       ->where(array('AB_AuctionId' => $auction))
                        ->order('auction_bid.AB_Bid DESC');
             });
         return $resultSet;
@@ -68,13 +71,14 @@ class BidTable extends AbstractTableGateway  {
         $user = (int) $user;
         $resultSet = $this->select(function (Select $select) use ($user) {
                 $select->columns(array('id' => 'AB_Id',
-                                       'auction' => 'AB_Auction',
-                                       'user' => 'AB_User',
+                                       'auction_id' => 'AB_AuctionId',
+                                       'user_id' => 'AB_UserId',
                                        'bid' => 'AB_Bid',
                                        'time' => 'AB_Time',
                                       )
                                 )
-                       ->where(array('AB_User' => $user));
+                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'display_name',))
+                       ->where(array('AB_UserId' => $user));
             });
         return $resultSet;
     }
@@ -82,8 +86,8 @@ class BidTable extends AbstractTableGateway  {
     public function saveBid(Bid $bid) {
         $data = array(
             'AB_Id'      => $bid->id,
-            'AB_Auction' => $bid->auction,
-            'AB_User'    => $bid->user,
+            'AB_AuctionId' => $bid->auction_id,
+            'AB_UserId'    => $bid->user_id,
             'AB_Bid'     => $bid->bid,
             'AB_Time'    => $bid->time,
 

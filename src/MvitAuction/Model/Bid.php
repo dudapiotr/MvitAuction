@@ -8,18 +8,20 @@ use Zend\InputFilter\InputFilterInterface;
 
 class Bid {
     public $id;
-    public $auction;
-    public $user;
+    public $auction_id;
+    public $user_id;
+    public $username;
     public $bid;
     public $time;
     protected $inputFilter;
 
     public function exchangeArray($data) {
-        $this->id      = (isset($data['id'])) ? $data['id'] : null;
-        $this->auction = (isset($data['auction'])) ? $data['auction'] : 0;
-        $this->user    = (isset($data['user'])) ? $data['user'] : 0;
-        $this->bid     = (isset($data['bid'])) ? $data['bid'] : 0;
-        $this->time    = (isset($data['time'])) ? $data['time'] : 0;
+        $this->id         = (isset($data['id'])) ? $data['id'] : null;
+        $this->auction_id = (isset($data['auction_id'])) ? $data['auction_id'] : 0;
+        $this->user_id    = (isset($data['user_id'])) ? $data['user_id'] : 0;
+        $this->username   = (isset($data['username'])) ? $data['username'] : "";
+        $this->bid        = (isset($data['bid'])) ? $data['bid'] : 0;
+        $this->time       = (isset($data['time'])) ? $data['time'] : 0;
     }
 
     public function getArrayCopy() {
@@ -44,7 +46,7 @@ class Bid {
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'auction',
+                'name'     => 'auction_id',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
@@ -52,7 +54,7 @@ class Bid {
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'user',
+                'name'     => 'user_id',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
