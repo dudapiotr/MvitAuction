@@ -101,7 +101,7 @@ class AuctionController extends AbstractActionController {
 
     public function bidAction() {
         $slug = (string) $this->params()->fromRoute('slug', 0);
-        if (!$slug) {
+        if (!$slug || !$this->zfcUserAuthentication()->getIdentity()) {
             return $this->redirect()->toRoute('mvitauction');
         }
         $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
@@ -181,11 +181,16 @@ class AuctionController extends AbstractActionController {
         $form->bind($bid);
 
         $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
+	$bids = "";
+
+        foreach ($this->getBidTable()->getBidsByAuction($auction->id) as $bid) {
+            $bids[] = $bid;
+	}
 
         return new ViewModel(array(
             'auction' => $auction,
             'currency' => $this->getCurrencyTable()->getCurrencyById($auction->currency_id),
-            'bids' => $this->getBidTable()->getBidsByAuction($auction->id),
+            'bids' => $bids,
             'form' => $form,
             'flashMessages' => $this->flashMessenger()->getMessages(),
         ));

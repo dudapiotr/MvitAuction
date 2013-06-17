@@ -25,7 +25,7 @@ class BidTable extends AbstractTableGateway  {
                                        'time' => 'AB_Time',
                                       )
                                 )
-                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'display_name',));
+                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'username',));
             });
         return $resultSet;
     }
@@ -40,7 +40,7 @@ class BidTable extends AbstractTableGateway  {
                                        'time' => 'AB_Time',
                                       )
                                 )
-                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'display_name',))
+                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'username',))
                        ->where(array('AB_Id' => $id));
             });
         $row = $resultSet->current();
@@ -60,7 +60,7 @@ class BidTable extends AbstractTableGateway  {
                                        'time' => 'AB_Time',
                                       )
                                 )
-                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'display_name',))
+                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'username',))
                        ->where(array('AB_AuctionId' => $auction))
                        ->order('auction_bid.AB_Bid DESC');
             });
@@ -77,7 +77,7 @@ class BidTable extends AbstractTableGateway  {
                                        'time' => 'AB_Time',
                                       )
                                 )
-                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'display_name',))
+                       ->join('user', 'auction_bid.AB_UserId = user.user_id', array('username' => 'username',))
                        ->where(array('AB_UserId' => $user));
             });
         return $resultSet;
@@ -85,12 +85,11 @@ class BidTable extends AbstractTableGateway  {
 
     public function saveBid(Bid $bid) {
         $data = array(
-            'AB_Id'      => $bid->id,
+            'AB_Id'        => $bid->id,
             'AB_AuctionId' => $bid->auction_id,
             'AB_UserId'    => $bid->user_id,
-            'AB_Bid'     => $bid->bid,
-            'AB_Time'    => $bid->time,
-
+            'AB_Bid'       => $bid->bid,
+            'AB_Time'      => $bid->time,
         );
 
         $id = (int) $bid->id;

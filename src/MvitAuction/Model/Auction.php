@@ -36,9 +36,9 @@ class Auction {
         $this->created        = (isset($data['created'])) ? $data['created'] : null;
         $this->end_time       = (isset($data['end_time'])) ? $data['end_time'] : null;
         $this->updated        = (isset($data['updated'])) ? $data['updated'] : null;
-        $this->price          = (isset($data['price'])) ? $data['price'] : null;
-        $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : null;
-        $this->bid            = (isset($data['bid'])) ? $data['bid'] : null;
+        $this->price          = (isset($data['price'])) ? number_format($data['price'], 2, '.', '') : null;
+        $this->buyout         = (isset($data['buyout'])) ? number_format($data['buyout'], 2, '.', '') : null;
+        $this->bid            = (isset($data['bid'])) ? number_format($data['bid'], 2, '.', '') : null;
         $this->bid_count      = (isset($data['bid_count'])) ? $data['bid_count'] : null;
         $this->slug           = (isset($data['slug'])) ? $data['slug'] : null;
         $this->header         = (isset($data['header'])) ? $data['header'] : null;

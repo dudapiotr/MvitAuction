@@ -24,10 +24,11 @@ $this->headTitle($this->escapeHtml($title));
       <dt>Buyout price:</dt>
       <dd><?php echo $this->escapeHtml($currency->before).$this->escapeHtml($auction->buyout).$this->escapeHtml($currency->after);?></dd>
 <?php } ?>
-<?php if (count($bids) > 0) { ?>
+<?php if ($auction->bid_count) { ?>
       <dt>Current bid:</dt>
-      <dd><?php echo $this->escapeHtml($currency->before).$bids->current()->bid.$this->escapeHtml($currency->after);?></dd>
+      <dd><?php echo $this->escapeHtml($currency->before).$bids[0]->bid.$this->escapeHtml($currency->after);?></dd>
 <?php } ?>
+<?php if ($this->zfcUserIdentity()) { ?>
       <dt>Make your bid</dt>
       <dd>
 <?php
@@ -42,6 +43,7 @@ echo $this->formSubmit($form->get('submit'));
 echo $this->form()->closeTag();
 ?>
       </dd>
+<?php } ?>
 <?php if ($auction->bid_count) { ?>
       <dt>Bid history:</dt>
       <dd>
