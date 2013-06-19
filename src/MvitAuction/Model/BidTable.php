@@ -81,11 +81,11 @@ class BidTable extends AbstractTableGateway  {
                        ->where(array('AB_AuctionId' => $auction))
                        ->order('auction_bid.AB_Bid DESC')->limit(1);
             });
-        $row = $resultSet->current();$
-        if (!$row) {$
-            throw new \Exception("Could not find row $id");$
-        }$
-        return $row;$
+        $row = $resultSet->current();
+        if (!$row) {
+            throw new \Exception("Could not find row $id");
+        }
+        return $row;
     }
 
     public function getBidsByUser($user) {

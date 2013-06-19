@@ -117,8 +117,12 @@ class AuctionController extends AbstractActionController {
                 $bid->auction_id = $auction->id;
                 $bid->user_id = $this->zfcUserAuthentication()->getIdentity()->getId();
                 $bid->time = time();
-                $this->getBidTable()->saveBid($bid);
-                $this->flashMessenger()->addMessage('Bid accepted!');
+                if ($this->getBidTable()->getHighestBidByAuction($auction->id)->bid < $bid->bid) {
+                    $this->getBidTable()->saveBid($bid);
+                    $this->flashMessenger()->addMessage('Bid accepted!');
+                } else {
+                    $this->flashMessenger()->addMessage('Bid to low, not accepted!');
+                }
             }
         }
         return $this->redirect()->toRoute('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));
