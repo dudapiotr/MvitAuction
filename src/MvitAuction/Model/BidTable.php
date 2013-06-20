@@ -109,7 +109,7 @@ class BidTable extends AbstractTableGateway  {
             'AB_Id'        => $bid->id,
             'AB_AuctionId' => $bid->auction_id,
             'AB_UserId'    => $bid->user_id,
-            'AB_Bid'       => $bid->bid,
+            'AB_Bid'       => str_replace(",", ".", $bid->bid),
             'AB_Time'      => $bid->time,
         );
 
