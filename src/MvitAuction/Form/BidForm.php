@@ -26,11 +26,7 @@ class BidForm extends Form {
             'name' => 'bid',
             'attributes' => array(
                 'type'  => 'text',
-		'filters'    => array('Float'),
             ),
-#            'options' => array(
-#                'label' => 'Place a bid',
-#            ),
         ));
         $this->add(array(
             'name' => 'submit',

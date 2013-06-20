@@ -20,7 +20,7 @@ class Bid {
         $this->auction_id = (isset($data['auction_id'])) ? $data['auction_id'] : 0;
         $this->user_id    = (isset($data['user_id'])) ? $data['user_id'] : 0;
         $this->username   = (isset($data['username'])) ? $data['username'] : "";
-        $this->bid        = (isset($data['bid'])) ? number_format($data['bid'], 2, '.', '') : 0;
+        $this->bid        = (isset($data['bid'])) ? $data['bid'] : 0;
         $this->time       = (isset($data['time'])) ? $data['time'] : 0;
     }
 
