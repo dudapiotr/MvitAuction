@@ -19,14 +19,14 @@ $this->headTitle($this->escapeHtml($title));
       <dt>End time:</dt>
       <dd><?php echo date("Y-m-d H:i", $this->escapeHtml($auction->end_time));?></dd>
       <dt>Start price:</dt>
-      <dd><?php echo $this->escapeHtml($currency->before).$this->escapeHtml($auction->price).$this->escapeHtml($currency->after);?></dd>
+      <dd><?php echo $this->escapeHtml($currency->before.$this->numberFormat($auction->price, NumberFormatter::DECIMAL, NumberFormatter::TYPE_DEFAULT, \Locale::getDefault(),2).$currency->after);?></dd>
 <?php if ($auction->buyout) { ?>
       <dt>Buyout price:</dt>
-      <dd><?php echo $this->escapeHtml($currency->before).$this->escapeHtml($auction->buyout).$this->escapeHtml($currency->after);?></dd>
+      <dd><?php echo $this->escapeHtml($currency->before.$this->numberFormat($auction->buyout, NumberFormatter::DECIMAL, NumberFormatter::TYPE_DEFAULT, \Locale::getDefault(),2).$currency->after);?></dd>
 <?php } ?>
 <?php if ($auction->bid_count) { ?>
       <dt>Current bid:</dt>
-      <dd><?php echo $this->escapeHtml($currency->before).$bids[0]->bid.$this->escapeHtml($currency->after);?></dd>
+      <dd><?php echo $this->escapeHtml($currency->before.$this->numberFormat($bids[0]->bid, NumberFormatter::DECIMAL, NumberFormatter::TYPE_DEFAULT, \Locale::getDefault(),2).$currency->after);?></dd>
 <?php } ?>
 <?php if ($this->zfcUserIdentity()) { ?>
       <dt>Make your bid</dt>
@@ -49,7 +49,7 @@ echo $this->form()->closeTag();
       <dd>
         <ul>
 <?php foreach($bids as $bid) : ?>
-          <li><?php echo $this->escapeHtml($currency->before).$bid->bid.$this->escapeHtml($currency->after); ?> - <?php echo $bid->username; ?></li>
+          <li><?php echo $this->escapeHtml($currency->before.$this->numberFormat($bid->bid, NumberFormatter::DECIMAL, NumberFormatter::TYPE_DEFAULT, \Locale::getDefault(),2).$currency->after); ?> - <?php echo $bid->username; ?></li>
 <?php endforeach; ?>
         </ul>
       </dd>

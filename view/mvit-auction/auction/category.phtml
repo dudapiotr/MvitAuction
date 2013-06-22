@@ -19,9 +19,9 @@ $this->headTitle($title);
     <td class="price"><a href="<?php echo $this->url('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));?>"><?php
 echo $this->escapeHtml($currencies[$auction->currency_id]->before);
 if ($auction->bid_count > 0) {
-    echo $this->escapeHtml($auction->bid);
+    echo $this->escapeHtml($this->numberFormat($auction->bid, NumberFormatter::DECIMAL, NumberFormatter::TYPE_DEFAULT, \Locale::getDefault(),2));
 } else {
-    echo $this->escapeHtml($auction->price);
+    echo $this->escapeHtml($this->numberFormat($auction->price, NumberFormatter::DECIMAL, NumberFormatter::TYPE_DEFAULT, \Locale::getDefault(),2));
 }
 echo $this->escapeHtml($currencies[$auction->currency_id]->after);
 ?></a></td>
