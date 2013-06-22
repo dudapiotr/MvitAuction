@@ -118,6 +118,7 @@ class AuctionController extends AbstractActionController {
                 $bid->auction_id = $auction->id;
                 $bid->user_id = $this->zfcUserAuthentication()->getIdentity()->getId();
                 $bid->time = time();
+
                 if ($this->getBidTable()->getHighestBidByAuction($auction->id)->bid < $bid->bid) {
                     $this->getBidTable()->saveBid($bid);
                     $this->flashMessenger()->addMessage('Bid accepted!');

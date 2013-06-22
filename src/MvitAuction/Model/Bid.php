@@ -16,11 +16,13 @@ class Bid {
     protected $inputFilter;
 
     public function exchangeArray($data) {
+        $float_filter = new \Zend\I18n\Filter\NumberFormat();
+
         $this->id         = (isset($data['id'])) ? $data['id'] : null;
         $this->auction_id = (isset($data['auction_id'])) ? $data['auction_id'] : 0;
         $this->user_id    = (isset($data['user_id'])) ? $data['user_id'] : 0;
         $this->username   = (isset($data['username'])) ? $data['username'] : "";
-        $this->bid        = (isset($data['bid'])) ? $data['bid'] : 0;
+        $this->bid        = (isset($data['bid'])) ? (float) $float_filter->filter($data['bid']) : 0;
         $this->time       = (isset($data['time'])) ? $data['time'] : 0;
     }
 
