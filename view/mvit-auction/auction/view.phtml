@@ -20,7 +20,7 @@ $this->headTitle($this->escapeHtml($title));
       <dd><?php echo date("Y-m-d H:i", $this->escapeHtml($auction->end_time));?></dd>
       <dt>Start price:</dt>
       <dd><?php echo $this->escapeHtml($currency->before.$this->numberFormat($auction->price, NumberFormatter::DECIMAL, NumberFormatter::TYPE_DEFAULT, \Locale::getDefault(),2).$currency->after);?></dd>
-<?php if ($auction->buyout) { ?>
+<?php if ($auction->buyout > 0) { ?>
       <dt>Buyout price:</dt>
       <dd><?php echo $this->escapeHtml($currency->before.$this->numberFormat($auction->buyout, NumberFormatter::DECIMAL, NumberFormatter::TYPE_DEFAULT, \Locale::getDefault(),2).$currency->after);?></dd>
 <?php } ?>
