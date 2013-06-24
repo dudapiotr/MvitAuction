@@ -7,19 +7,17 @@ $this->headTitle($title);
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <?php
 $form = $this->form;
-$form->setAttribute('action', $this->url('mvitauction', array('action' => 'add')));
+$form->setAttribute('action', $this->url('mvitauction/add'));
 $form->prepare();
 
 echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('id'));
-#echo $this->formRow($form->get('owner'));
+#echo $this->formRow($form->get('user_id'));
 #echo $this->formRow($form->get('created'));
-echo $this->formRow($form->get('endtime'));
+echo $this->formRow($form->get('end_time'));
 #echo $this->formRow($form->get('updated'));
 echo $this->formRow($form->get('price'));
-#echo $this->formRow($form->get('bid'));
-#echo $this->formRow($form->get('bidcount'));
-#echo $this->formRow($form->get('bidhistory'));
+echo $this->formRow($form->get('buyout'));
 echo $this->formRow($form->get('header'));
 echo $this->formRow($form->get('body'));
 #echo $this->formRow($form->get('protection'));

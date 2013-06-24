@@ -61,8 +61,8 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'id',
-                'required' => true,
-                'filters'  => array(
+                'required' => false,
+		'filters'  => array(
                     array('name' => 'Int'),
                 ),
             )));
@@ -70,7 +70,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'user_id',
                 'required' => false,
-                'filters'  => array(
+		'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
@@ -78,7 +78,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'category_id',
                 'required' => false,
-                'filters'  => array(
+		'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
@@ -94,14 +94,14 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'created',
                 'required' => false,
-                'filters'  => array(
+		'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'endtime',
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
@@ -110,62 +110,42 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'updated',
                 'required' => false,
-                'filters'  => array(
+		'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'price',
-                'required' => true,
-                'validators' => array(
+#                'required' => true,
+                'required' => false,
+		'validators' => array(
                     array(
                         'name'    => 'float',
-                        'options' => array(
-                            'locale' => 'en_GB'
-                        ),
+#                        'options' => array(
+#                            'locale' => 'en_GB'
+#                        ),
                     ),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'buyout',
-                'required' => true,
-                'validators' => array(
-                    array(
-                        'name'    => 'float',
-                        'options' => array(
-                            'locale' => 'en_GB'
-                        ),
-                    ),
-                ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'bid',
                 'required' => false,
                 'validators' => array(
                     array(
                         'name'    => 'float',
-                        'options' => array(
-                            'locale' => 'en_GB'
-                        ),
+#                        'options' => array(
+#                            'locale' => 'en_GB'
+#                        ),
                     ),
-                ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'bidcount',
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'int'),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'slug',
-                'required' => true,
-                'filters'  => array(
+                'required' => false,
+		'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
@@ -195,8 +175,9 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'header',
-                'required' => true,
-                'filters'  => array(
+#                'required' => true,
+                 'required' => false,
+		 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
@@ -205,7 +186,7 @@ class Auction {
                       'name' =>'NotEmpty', 
                         'options' => array(
                             'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Please enter a name!' 
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'You need to enter a subject!'
                             ),
                         ),
                     ),
@@ -216,8 +197,8 @@ class Auction {
                             'min' => 3,
                             'max' => 30,
                             'messages' => array(
-                                'stringLengthTooShort' => 'Please enter a name between 3 to 30 character!', 
-                                'stringLengthTooLong' => 'Please enter a name between 3 to 30 character!' 
+                                'stringLengthTooShort' => 'Your subject is to short, min 3 chars!', 
+                                'stringLengthTooLong' => 'Your subject is to long, max 30 chars!' 
                             ),
                         ),
                     ),
@@ -226,8 +207,9 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'body',
-                'required' => true,
-                'filters'  => array(
+#                'required' => true,
+                'required' => false,
+		'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
@@ -239,8 +221,8 @@ class Auction {
                             'min'      => 50,
                             'max'      => 1000,
                             'messages' => array(
-                                'stringLengthTooShort' => 'Please enter a text between 3 to 30 character!', 
-                                'stringLengthTooLong' => 'Please enter a text between 3 to 30 character!' 
+                                'stringLengthTooShort' => 'Your body is to short, min 50 chars!', 
+                                'stringLengthTooLong' => 'Your body is to large, max 1000 chars!' 
                             ),
                         ),
                     ),
@@ -249,8 +231,8 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'protection',
-                'required' => true,
-                'filters'  => array(
+                'required' => false,
+		'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));

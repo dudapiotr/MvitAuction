@@ -52,12 +52,17 @@ class AuctionController extends AbstractActionController {
         $form->get('submit')->setValue('Add');
 
         $request = $this->getRequest();
-        if ($request->isPost()) {
+        if ($request->isPost() || !$this->zfcUserAuthentication()->getIdentity()) {
             $auction = new Auction();
+            $form = new AuctionForm();
+            $form->bind($auction);
+					    
             $form->setInputFilter($auction->getInputFilter());
             $form->setData($request->getPost());
+
             if ($form->isValid()) {
-                $auction->exchangeArray($form->getData());
+                $auction->user_id = $this->zfcUserAuthentication()->getIdentity()->getId();
+                $auction->created= time();
                 $this->getAuctionTable()->saveAuction($auction);
 
                 // Redirect to list of auctions

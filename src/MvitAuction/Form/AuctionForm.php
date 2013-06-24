@@ -14,12 +14,21 @@ class AuctionForm extends Form {
             ),
         ));
         $this->add(array(
-            'name' => 'owner',
+            'name' => 'user_id',
             'attributes' => array(
                 'type'  => 'text',
             ),
-            'options' => array(
-                'label' => 'Owner',
+        ));
+        $this->add(array(
+            'name' => 'category_id',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'currency_id',
+            'attributes' => array(
+                'type'  => 'text',
             ),
         ));
         $this->add(array(
@@ -32,7 +41,7 @@ class AuctionForm extends Form {
             ),
         ));
         $this->add(array(
-            'name' => 'endtime',
+            'name' => 'end_time',
             'attributes' => array(
                 'type'  => 'text',
             ),
@@ -44,9 +53,6 @@ class AuctionForm extends Form {
             'name' => 'updated',
             'attributes' => array(
                 'type'  => 'text',
-            ),
-            'options' => array(
-                'label' => 'Updated',
             ),
         ));
         $this->add(array(
@@ -74,24 +80,6 @@ class AuctionForm extends Form {
             ),
             'options' => array(
                 'label' => 'Bid',
-            ),
-        ));
-        $this->add(array(
-            'name' => 'bidcount',
-            'attributes' => array(
-                'type'  => 'text',
-            ),
-            'options' => array(
-                'label' => 'Bidcount',
-            ),
-        ));
-        $this->add(array(
-            'name' => 'bidhistory',
-            'attributes' => array(
-                'type'  => 'text',
-            ),
-            'options' => array(
-                'label' => 'Bidhistory',
             ),
         ));
         $this->add(array(
