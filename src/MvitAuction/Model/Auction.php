@@ -77,7 +77,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'category_id',
-                'required' => false,
+                'required' => true,
 		'filters'  => array(
                     array('name' => 'int'),
                 ),
@@ -85,7 +85,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'currency_id',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
@@ -100,8 +100,8 @@ class Auction {
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'endtime',
-                'required' => false,
+                'name'     => 'end_time',
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
@@ -117,8 +117,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'price',
-#                'required' => true,
-                'required' => false,
+                'required' => true,
 		'validators' => array(
                     array(
                         'name'    => 'float',
@@ -175,8 +174,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'header',
-#                'required' => true,
-                 'required' => false,
+                 'required' => true,
 		 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
@@ -207,8 +205,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'body',
-#                'required' => true,
-                'required' => false,
+                'required' => true,
 		'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),

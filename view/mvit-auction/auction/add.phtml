@@ -1,6 +1,4 @@
 <?php
-// view/mvit-auction/auction/add.phtml:
-
 $title = 'Add new auction';
 $this->headTitle($title);
 ?>
@@ -10,16 +8,16 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('mvitauction/add'));
 $form->prepare();
 
-echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('id'));
-#echo $this->formRow($form->get('user_id'));
-#echo $this->formRow($form->get('created'));
-echo $this->formRow($form->get('end_time'));
-#echo $this->formRow($form->get('updated'));
-echo $this->formRow($form->get('price'));
-echo $this->formRow($form->get('buyout'));
-echo $this->formRow($form->get('header'));
-echo $this->formRow($form->get('body'));
-#echo $this->formRow($form->get('protection'));
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag();
+echo $this->form()->openTag($form)."\n";
+echo $this->formRow($form->get('category_id'))."\n";
+echo $this->formRow($form->get('currency_id'))."\n";
+#echo $this->formRow($form->get('created'))."\n";
+echo $this->formRow($form->get('end_time'))."\n";
+#echo $this->formRow($form->get('updated'))."\n";
+echo $this->formRow($form->get('price'))."\n";
+echo $this->formRow($form->get('buyout'))."\n";
+echo $this->formRow($form->get('header'))."\n";
+echo $this->formRow($form->get('body'))."\n";
+#echo $this->formRow($form->get('protection'))."\n";
+echo $this->formSubmit($form->get('submit'))."\n";
+echo $this->form()->closeTag()."\n";

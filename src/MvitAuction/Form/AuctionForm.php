@@ -18,17 +18,28 @@ class AuctionForm extends Form {
             'attributes' => array(
                 'type'  => 'text',
             ),
+            'options' => array(
+                'label' => 'User',
+            ),
         ));
         $this->add(array(
             'name' => 'category_id',
-            'attributes' => array(
-                'type'  => 'text',
+            'type'  => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Category',
+                'options' => array(
+                    'error' => 'This is a error!',
+                ),
             ),
         ));
         $this->add(array(
             'name' => 'currency_id',
-            'attributes' => array(
-                'type'  => 'text',
+            'type'  => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Currency',
+                'options' => array(
+                    'error' => 'This is a error!',
+                ),
             ),
         ));
         $this->add(array(
@@ -74,12 +85,12 @@ class AuctionForm extends Form {
             ),
         ));
         $this->add(array(
-            'name' => 'bid',
+            'name' => 'slug',
             'attributes' => array(
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Bid',
+                'label' => 'Slug',
             ),
         ));
         $this->add(array(
