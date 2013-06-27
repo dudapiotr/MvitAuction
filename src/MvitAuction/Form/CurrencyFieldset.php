@@ -24,6 +24,5 @@ class CurrencyFieldset extends Fieldset {
                 'options' => $options,
             ),
         ));
-
     }
 }
