@@ -12,7 +12,7 @@ class CurrencyFieldset extends Fieldset {
         foreach($currencyTable->fetchAll() as $currencyRow) {
             $options[$currencyRow->id] = $currencyRow->name;
         }
-    
+
         $this->add(array(
             'name' => 'currency_id',
             'type' => 'Zend\Form\Element\Select',

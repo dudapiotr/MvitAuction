@@ -1,6 +1,8 @@
 <?php
 namespace MvitAuction;
 
+use MvitAuction\Form\CategoryFieldset;
+use MvitAuction\Form\CurrencyFieldset;
 use MvitAuction\Model\Auction;
 use MvitAuction\Model\AuctionTable;
 use MvitAuction\Model\Bid;
@@ -11,8 +13,9 @@ use MvitAuction\Model\Currency;
 use MvitAuction\Model\CurrencyTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\ModuleManager\Feature\FormElementProviderInterface;
 
-class Module {
+class Module implements FormElementProviderInterface {
     public function getAutoloaderConfig() {
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
@@ -28,6 +31,25 @@ class Module {
 
     public function getConfig() {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getFormElementConfig() {
+        return array(
+            'factories' => array(
+                'MvitAuction\Form\CategoryFieldset' => function($sm) {
+                    $serviceLocator = $sm->getServiceLocator();
+                    $categoryTable = $serviceLocator->get('MvitAuction\Model\CategoryTable');
+                    $fieldset = new CategoryFieldset($categoryTable);
+                    return $fieldset;
+                },
+                'MvitAuction\Form\CurrencyFieldset' => function($sm) {
+                    $serviceLocator = $sm->getServiceLocator();
+                    $currencyTable = $serviceLocator->get('MvitAuction\Model\CurrencyTable');
+                    $fieldset = new CurrencyFieldset($currencyTable);
+                    return $fieldset;
+                },
+            ),
+        );
     }
 
     public function getServiceConfig() {

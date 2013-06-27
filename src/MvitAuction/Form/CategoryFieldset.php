@@ -12,7 +12,6 @@ class CategoryFieldset extends Fieldset {
         foreach($categoryTable->fetchAll() as $categoryRow) {
             $options[$categoryRow->id] = $categoryRow->name;
         }
-var_dump($options);
         $this->add(array(
             'name' => 'category_id',
             'type' => 'Zend\Form\Element\Select',
@@ -24,6 +23,5 @@ var_dump($options);
                 'options' => $options,
             ),
         ));
-
     }
 }

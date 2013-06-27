@@ -23,26 +23,6 @@ class AuctionForm extends Form {
             ),
         ));
         $this->add(array(
-            'name' => 'category_id',
-            'type'  => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Category',
-                'options' => array(
-                    'error' => 'This is a error!',
-                ),
-            ),
-        ));
-        $this->add(array(
-            'name' => 'currency_id',
-            'type'  => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Currency',
-                'options' => array(
-                    'error' => 'This is a error!',
-                ),
-            ),
-        ));
-        $this->add(array(
             'name' => 'created',
             'attributes' => array(
                 'type'  => 'text',
@@ -126,6 +106,23 @@ class AuctionForm extends Form {
                 'type'  => 'submit',
                 'value' => 'Go',
                 'id' => 'submitbutton',
+            ),
+        ));
+    }
+
+    public function init() {
+        $this->add(array(
+            'name' => 'category_id',
+            'type'  => 'MvitAuction\Form\CategoryFieldset',
+            'options' => array(
+                'label' => 'Category',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'currency_id',
+            'type'  => 'MvitAuction\Form\CurrencyFieldset',
+            'options' => array(
+                'label' => 'Currency',
             ),
         ));
     }
