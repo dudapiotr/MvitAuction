@@ -1,11 +1,11 @@
 <?php
 namespace MvitAuction\Form;
 
-use MvitAuction\Model;
+use MvitAuction\Model\CategoryTable;
 use Zend\Form\Fieldset;
 
 class CategoryFieldset extends Fieldset { 
-    public function __construct($categoryTable) {
+    public function __construct(CategoryTable $categoryTable) {
         parent::__construct('category'); 
 
         $options = array();

@@ -113,17 +113,11 @@ class AuctionForm extends Form {
     public function init() {
         $this->add(array(
             'name' => 'category_id',
-            'type'  => 'MvitAuction\Form\CategoryFieldset',
-            'options' => array(
-                'label' => 'Category',
-            ),
+            'type' => 'MvitAuction\Form\CategoryFieldset',
         ));
         $this->add(array(
             'name' => 'currency_id',
-            'type'  => 'MvitAuction\Form\CurrencyFieldset',
-            'options' => array(
-                'label' => 'Currency',
-            ),
+            'type' => 'MvitAuction\Form\CurrencyFieldset',
         ));
     }
 }

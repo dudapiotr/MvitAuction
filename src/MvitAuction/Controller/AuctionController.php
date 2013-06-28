@@ -55,7 +55,6 @@ class AuctionController extends AbstractActionController {
         $request = $this->getRequest();
         if ($request->isPost() || !$this->zfcUserAuthentication()->getIdentity()) {
             $auction = new Auction();
-            $form = new AuctionForm();
             $form->bind($auction);
 					    
             $form->setInputFilter($auction->getInputFilter());

@@ -1,11 +1,11 @@
 <?php
 namespace MvitAuction\Form;
 
-use MvitAuction\Model;
+use MvitAuction\Model\CurrencyTable;
 use Zend\Form\Fieldset;
 
 class CurrencyFieldset extends Fieldset { 
-    public function __construct($currencyTable) {
+    public function __construct(CurrencyTable $currencyTable) {
         parent::__construct('currency');
 
         $options = array();
