@@ -55,24 +55,24 @@ class Module implements FormElementProviderInterface {
     public function getServiceConfig() {
         return array(
             'factories' => array(
-                'MvitAuction\Model\AuctionTable' =>  function($sm) {
+                'MvitAuction\Model\AuctionTable' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new AuctionTable($dbAdapter);
+                    $table = new AuctionTable($dbAdapter);
                     return $table;
                 },
-                'MvitAuction\Model\BidTable' =>  function($sm) {
+                'MvitAuction\Model\BidTable' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new BidTable($dbAdapter);
+                    $table = new BidTable($dbAdapter);
                     return $table;
                 },
-                'MvitAuction\Model\CategoryTable' =>  function($sm) {
+                'MvitAuction\Model\CategoryTable' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new CategoryTable($dbAdapter);
+                    $table = new CategoryTable($dbAdapter);
                     return $table;
                 },
-                'MvitAuction\Model\CurrencyTable' =>  function($sm) {
+                'MvitAuction\Model\CurrencyTable' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new CurrencyTable($dbAdapter);
+                    $table = new CurrencyTable($dbAdapter);
                     return $table;
                 },
             ),
