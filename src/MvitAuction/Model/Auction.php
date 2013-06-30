@@ -29,6 +29,8 @@ class Auction {
     public function exchangeArray($data) {
         $this->id             = (isset($data['id'])) ? $data['id'] : null;
         $this->user_id        = (isset($data['user_id'])) ? $data['user_id'] : null;
+        $this->category_id    = (isset($data['category']['id'])) ? $data['category']['id'] : null;
+        $this->currency_id    = (isset($data['currency']['id'])) ? $data['currency']['id'] : null;
         $this->category_id    = (isset($data['category_id'])) ? $data['category_id'] : null;
         $this->currency_id    = (isset($data['currency_id'])) ? $data['currency_id'] : null;
         $this->category_name  = (isset($data['category_name'])) ? $data['category_name'] : null;
@@ -37,13 +39,13 @@ class Auction {
         $this->end_time       = (isset($data['end_time'])) ? $data['end_time'] : null;
         $this->updated        = (isset($data['updated'])) ? $data['updated'] : null;
         $this->price          = (isset($data['price'])) ? $data['price'] : null;
-        $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : null;
+        $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : 0;
         $this->bid            = (isset($data['bid'])) ? $data['bid'] : null;
         $this->bid_count      = (isset($data['bid_count'])) ? $data['bid_count'] : null;
-        $this->slug           = (isset($data['slug'])) ? $data['slug'] : null;
+        $this->slug           = (isset($data['slug'])) ? $data['slug'] : "Slug";
         $this->header         = (isset($data['header'])) ? $data['header'] : null;
         $this->body           = (isset($data['body'])) ? $data['body'] : null;
-        $this->protection     = (isset($data['protection'])) ? $data['protection'] : null;
+        $this->protection     = (isset($data['protection'])) ? $data['protection'] : 0;
     }
 
     public function getArrayCopy() {

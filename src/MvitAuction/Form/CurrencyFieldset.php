@@ -6,7 +6,7 @@ use Zend\Form\Fieldset;
 
 class CurrencyFieldset extends Fieldset { 
     public function __construct(CurrencyTable $currencyTable) {
-        parent::__construct('currency');
+        parent::__construct('currencyfieldset');
 
         $options = array();
         foreach($currencyTable->fetchAll() as $currencyRow) {
@@ -14,7 +14,7 @@ class CurrencyFieldset extends Fieldset {
         }
 
         $this->add(array(
-            'name' => 'currency_id',
+            'name' => 'id',
             'type' => 'Zend\Form\Element\Select',
             'attributes' => array(
                 'required' => true,

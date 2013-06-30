@@ -148,7 +148,7 @@ class AuctionTable extends AbstractTableGateway  {
             'A_CategoryId' => $auction->category_id,
             'A_CurrencyId' => $auction->currency_id,
             'A_Created' => $auction->created,
-            'A_Endtime' => $auction->endtime,
+            'A_Endtime' => $auction->end_time,
             'A_Updated' => time(),
             'A_Price' => $auction->price,
             'A_Buyout' => $auction->buyout,
@@ -157,14 +157,13 @@ class AuctionTable extends AbstractTableGateway  {
             'A_Body' => $auction->body,
             'A_Protection' => $auction->protection,
         );
-
         $id = (int)$auction->id;
         if ($id == 0) {
             $data['A_Created'] = time();
-            $this->tableGateway->insert($data);
+            $this->insert($data);
         } else {
             if ($this->getAuction($id)) {
-                $this->tableGateway->update($data, array('A_Id' => $id));
+                $this->update($data, array('A_Id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
             }

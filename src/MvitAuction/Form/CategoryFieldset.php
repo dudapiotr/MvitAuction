@@ -6,7 +6,7 @@ use Zend\Form\Fieldset;
 
 class CategoryFieldset extends Fieldset { 
     public function __construct(CategoryTable $categoryTable) {
-        parent::__construct('category'); 
+        parent::__construct('categoryfieldset'); 
 
         $options = array();
         foreach($categoryTable->fetchAll() as $categoryRow) {
@@ -14,7 +14,7 @@ class CategoryFieldset extends Fieldset {
         }
 
         $this->add(array(
-            'name' => 'category_id',
+            'name' => 'id',
             'type' => 'Zend\Form\Element\Select',
             'attributes' => array(
                 'required' => true,

@@ -6,6 +6,7 @@ use Zend\Form\Form;
 class AuctionForm extends Form {
     public function __construct($name = null) {
         parent::__construct('auction');
+        $this->setName('auction');
         $this->setAttribute('method', 'post');
         $this->add(array(
             'name' => 'id',
@@ -112,11 +113,11 @@ class AuctionForm extends Form {
 
     public function init() {
         $this->add(array(
-            'name' => 'category_id',
+            'name' => 'category',
             'type' => 'MvitAuction\Form\CategoryFieldset',
         ));
         $this->add(array(
-            'name' => 'currency_id',
+            'name' => 'currency',
             'type' => 'MvitAuction\Form\CurrencyFieldset',
         ));
     }
