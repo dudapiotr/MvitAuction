@@ -80,19 +80,11 @@ class AuctionController extends AbstractActionController {
         if (!$id) {
             return $this->redirect()->toRoute('mvitauction');
         }
-        $categories = $this->getCategoryTable()->fetchAll();
-        $currencies = $this->getCurrencyTable()->fetchAll();
-
-        $categories_array = array();
-        $currencies_array = array();
-        foreach ($categories as $category) { $categories_array[$category->id] = $category->name; }
-        foreach ($currencies as $currency) { $currencies_array[$currency->id] = $currency->name; }
 
         $auction = $this->getAuctionTable()->getAuctionById($id);
 
-        $form = new AuctionForm();
-        $form->get('category_id')->setOptions(array('options' => $categories_array));
-        $form->get('currency_id')->setOptions(array('options' => $currencies_array));
+        $formManager = $this->serviceLocator->get('FormElementManager');
+        $form = $formManager->get('MvitAuction\Form\AuctionForm');
         $form->bind($auction);
         $form->get('submit')->setAttribute('value', 'Edit');
 
