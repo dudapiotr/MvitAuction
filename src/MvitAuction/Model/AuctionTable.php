@@ -152,17 +152,22 @@ class AuctionTable extends AbstractTableGateway  {
             'A_Updated' => time(),
             'A_Price' => $auction->price,
             'A_Buyout' => $auction->buyout,
-            'A_Slug' => $auction->slug,
+            'A_Slug' => $this->toAscii($auction->header),
             'A_Header' => $auction->header,
             'A_Body' => $auction->body,
             'A_Protection' => $auction->protection,
         );
+        foreach ($data as $datakey => $dataitem) {
+            if ($dataitem == null) {
+                unset($data[$datakey]);
+            }
+        }
         $id = (int)$auction->id;
         if ($id == 0) {
             $data['A_Created'] = time();
             $this->insert($data);
         } else {
-            if ($this->getAuction($id)) {
+            if ($this->getAuctionById($id)) {
                 $this->update($data, array('A_Id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
@@ -171,7 +176,20 @@ class AuctionTable extends AbstractTableGateway  {
     }
 
     public function deleteAuction($id) {
-        $this->tableGateway->delete(array('A_Id' => $id));
+        $this->delete(array('A_Id' => $id));
+    }
+
+    private function toAscii($str, $replace=array(), $delimiter='-') {
+        setlocale(LC_ALL, 'en_US.UTF8');
+        if( !empty($replace) ) {
+            $str = str_replace((array)$replace, ' ', $str);
+        }
+
+        $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+        $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+        $clean = strtolower(trim($clean, '-'));
+        $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+
+        return $clean;
     }
 }
-

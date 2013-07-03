@@ -39,13 +39,13 @@ class Auction {
         $this->end_time       = (isset($data['end_time'])) ? $data['end_time'] : null;
         $this->updated        = (isset($data['updated'])) ? $data['updated'] : null;
         $this->price          = (isset($data['price'])) ? $data['price'] : null;
-        $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : 0;
+        $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : null;
         $this->bid            = (isset($data['bid'])) ? $data['bid'] : null;
         $this->bid_count      = (isset($data['bid_count'])) ? $data['bid_count'] : null;
-        $this->slug           = (isset($data['slug'])) ? $data['slug'] : "Slug";
+        $this->slug           = (isset($data['slug'])) ? $data['slug'] : null;
         $this->header         = (isset($data['header'])) ? $data['header'] : null;
         $this->body           = (isset($data['body'])) ? $data['body'] : null;
-        $this->protection     = (isset($data['protection'])) ? $data['protection'] : 0;
+        $this->protection     = (isset($data['protection'])) ? $data['protection'] : null;
     }
 
     public function getArrayCopy() {

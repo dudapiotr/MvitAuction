@@ -56,7 +56,7 @@ class AuctionController extends AbstractActionController {
         if ($request->isPost() || !$this->zfcUserAuthentication()->getIdentity()) {
             $auction = new Auction();
             $form->bind($auction);
-					    
+
             $form->setInputFilter($auction->getInputFilter());
             $form->setData($request->getPost());
 
@@ -64,15 +64,15 @@ class AuctionController extends AbstractActionController {
                 $auction->user_id = $this->zfcUserAuthentication()->getIdentity()->getId();
                 $auction->created= time();
                 $this->getAuctionTable()->saveAuction($auction);
-
+                $this->flashMessenger()->addMessage('Auction created!');
                 // Redirect to list of auctions
                 return $this->redirect()->toRoute('mvitauction');
             }
         }
         return array(
-	    'form' => $form,
-	    'flashMessages' => $this->flashMessenger()->getMessages(),
-	);
+            'form' => $form,
+            'flashMessages' => $this->flashMessenger()->getMessages(),
+        );
     }
 
     public function editAction() {
@@ -85,6 +85,7 @@ class AuctionController extends AbstractActionController {
 
         $formManager = $this->serviceLocator->get('FormElementManager');
         $form = $formManager->get('MvitAuction\Form\AuctionForm');
+        $form->setValidationGroup("id", "user_id", "end_time", "price", "buyout", "header", "body");
         $form->bind($auction);
         $form->get('submit')->setAttribute('value', 'Edit');
 
@@ -94,6 +95,7 @@ class AuctionController extends AbstractActionController {
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 $this->getAuctionTable()->saveAuction($auction);
+                $this->flashMessenger()->addMessage('Auction edited!');
                 // Redirect to list of auctions
                 return $this->redirect()->toRoute('mvitauction');
             }
@@ -194,11 +196,11 @@ class AuctionController extends AbstractActionController {
         $form->bind($bid);
 
         $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
-	$bids = "";
+        $bids = "";
 
         foreach ($this->getBidTable()->getBidsByAuction($auction->id) as $bid) {
             $bids[] = $bid;
-	}
+        }
 
         return new ViewModel(array(
             'auction' => $auction,
