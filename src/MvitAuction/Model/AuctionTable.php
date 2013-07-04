@@ -180,6 +180,7 @@ class AuctionTable extends AbstractTableGateway  {
     }
 
     private function toAscii($str, $replace=array(), $delimiter='-') {
+        # source: http://cubiq.org/the-perfect-php-clean-url-generator
         setlocale(LC_ALL, 'en_US.UTF8');
         if( !empty($replace) ) {
             $str = str_replace((array)$replace, ' ', $str);
