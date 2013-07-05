@@ -48,7 +48,7 @@ return array(
                     'add' => array(
                         'type' => 'Literal',
                         'options' => array(
-                            'route' => '/a',
+                            'route' => '/add',
                             'defaults' => array(
                                 'controller' => 'mvitauction',
                                 'action'     => 'add',
@@ -71,9 +71,9 @@ return array(
                     'edit' => array(
                         'type' => 'segment',
                         'options' => array(
-                            'route' => '/e[/:id]',
+                            'route' => '/edit[/:slug]',
                             'constraints' => array(
-                               'id' => '[0-9]+',
+                               'slug' => '[a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
                                 'controller' => 'mvitauction',
@@ -84,7 +84,7 @@ return array(
                     'delete' => array(
                         'type' => 'segment',
                         'options' => array(
-                            'route' => '/d[/:id]',
+                            'route' => '/delete[/:id]',
                             'constraints' => array(
                                'id' => '[0-9]+',
                             ),
