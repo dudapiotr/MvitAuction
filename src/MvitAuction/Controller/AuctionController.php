@@ -76,12 +76,12 @@ class AuctionController extends AbstractActionController {
     }
 
     public function editAction() {
-        $id = (int) $this->params()->fromRoute('id', 0);
-        if (!$id) {
+        $slug = (string) $this->params()->fromRoute('slug', 0);
+        if (!$slug || !$this->zfcUserAuthentication()->getIdentity()) {
             return $this->redirect()->toRoute('mvitauction');
         }
 
-        $auction = $this->getAuctionTable()->getAuctionById($id);
+        $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
 
         $formManager = $this->serviceLocator->get('FormElementManager');
         $form = $formManager->get('MvitAuction\Form\AuctionForm');
@@ -102,7 +102,7 @@ class AuctionController extends AbstractActionController {
         }
 
         return array(
-            'id' => $id,
+            'slug' => $slug,
             'form' => $form,
             'flashMessages' => $this->flashMessenger()->getMessages(),
         );

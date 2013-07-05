@@ -16,6 +16,8 @@ $this->headTitle($this->escapeHtml($title));
   </div>
   <div class="span2">
     <dl>
+      <dt>Owner data:</dt>
+      <dd><a href="<?php echo $this->url('mvitauction/edit', array('slug' => $auction->slug));?>">Edit auction</a><br/>Views: 0</dd>
       <dt>End time:</dt>
       <dd><?php echo date("Y-m-d H:i", $this->escapeHtml($auction->end_time));?></dd>
       <dt>Start price:</dt>
