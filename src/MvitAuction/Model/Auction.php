@@ -27,10 +27,10 @@ class Auction {
     protected $inputFilter;
 
     public function exchangeArray($data) {
+        if (isset($data['category']['id'])) { $data['category_id'] = $data['category']['id']; }
+	if (isset($data['currency']['id'])) { $data['currency_id'] = $data['currency']['id']; }
         $this->id             = (isset($data['id'])) ? $data['id'] : null;
         $this->user_id        = (isset($data['user_id'])) ? $data['user_id'] : null;
-        $this->category_id    = (isset($data['category']['id'])) ? $data['category']['id'] : null;
-        $this->currency_id    = (isset($data['currency']['id'])) ? $data['currency']['id'] : null;
         $this->category_id    = (isset($data['category_id'])) ? $data['category_id'] : null;
         $this->currency_id    = (isset($data['currency_id'])) ? $data['currency_id'] : null;
         $this->category_name  = (isset($data['category_name'])) ? $data['category_name'] : null;
@@ -164,10 +164,10 @@ class Auction {
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min' => 3,
-                            'max' => 30,
+                            'max' => 50,
                             'messages' => array(
-                                'stringLengthTooShort' => 'Please enter a slug between 3 to 30 character!', 
-                                'stringLengthTooLong' => 'Please enter a slug between 3 to 30 character!' 
+                                'stringLengthTooShort' => 'Please enter a slug between 3 to 50 character!', 
+                                'stringLengthTooLong' => 'Please enter a slug between 3 to 50 character!' 
                             ),
                         ),
                     ),
@@ -195,10 +195,10 @@ class Auction {
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min' => 3,
-                            'max' => 30,
+                            'max' => 50,
                             'messages' => array(
                                 'stringLengthTooShort' => 'Your subject is to short, min 3 chars!', 
-                                'stringLengthTooLong' => 'Your subject is to long, max 30 chars!' 
+                                'stringLengthTooLong' => 'Your subject is to long, max 50 chars!' 
                             ),
                         ),
                     ),

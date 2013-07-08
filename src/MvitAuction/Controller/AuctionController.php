@@ -1,6 +1,7 @@
 <?php
 namespace MvitAuction\Controller;
 
+use Exception;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use MvitAuction\Model\Auction;
@@ -77,11 +78,19 @@ class AuctionController extends AbstractActionController {
 
     public function editAction() {
         $slug = (string) $this->params()->fromRoute('slug', 0);
-        if (!$slug || !$this->zfcUserAuthentication()->getIdentity()) {
+        if (!$slug) {
             return $this->redirect()->toRoute('mvitauction');
         }
+        try {
+            $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
+        } catch (Exception $e) {
+	    return $this->redirect()->toRoute('mvitauction');
+        }
 
-        $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
+        if (!$this->zfcUserAuthentication()->getIdentity()->getId() == $auction->user_id) {
+            return $this->redirect()->toRoute('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));
+        }
+
 
         $formManager = $this->serviceLocator->get('FormElementManager');
         $form = $formManager->get('MvitAuction\Form\AuctionForm');
@@ -97,7 +106,7 @@ class AuctionController extends AbstractActionController {
                 $this->getAuctionTable()->saveAuction($auction);
                 $this->flashMessenger()->addMessage('Auction edited!');
                 // Redirect to list of auctions
-                return $this->redirect()->toRoute('mvitauction');
+                return $this->redirect()->toRoute('mvitauction/view', array('category' => $auction->category_slug, 'slug' => $auction->slug));
             }
         }
 
@@ -113,7 +122,11 @@ class AuctionController extends AbstractActionController {
         if (!$slug || !$this->zfcUserAuthentication()->getIdentity()) {
             return $this->redirect()->toRoute('mvitauction');
         }
-        $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
+        try {
+            $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
+        } catch (Exception $e) {
+            return $this->redirect()->toRoute('mvitauction');
+        }
         $request = $this->getRequest();
         if ($request->isPost()) {
             $bid = new Bid();
@@ -147,7 +160,11 @@ class AuctionController extends AbstractActionController {
 
     public function categoryAction() {
         $slug = (string) $this->params()->fromRoute('slug', 0);
-        $category = $this->getCategoryTable()->getCategoryBySlug($slug);
+        try {
+            $category = $this->getCategoryTable()->getCategoryBySlug($slug);
+        } catch (Exception $e) {
+            return $this->redirect()->toRoute('mvitauction');
+        }
         $currencies = "";
         foreach ($this->getCurrencyTable()->fetchAll() as $currency) {
             $currencies[$currency->id] = $currency;
@@ -162,6 +179,11 @@ class AuctionController extends AbstractActionController {
     public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
+            return $this->redirect()->toRoute('mvitauction');
+        }
+        try {
+            $auction = $this->getAuctionTable()->getAuctionById($id);
+        } catch (Exception $e) {
             return $this->redirect()->toRoute('mvitauction');
         }
 
@@ -180,7 +202,7 @@ class AuctionController extends AbstractActionController {
 
         return array(
             'id' => $id,
-            'auction' => $this->getAuctionTable()->getAuction($id),
+            'auction' => $auction,
             'flashMessages' => $this->flashMessenger()->getMessages(),
         );
     }
@@ -190,12 +212,17 @@ class AuctionController extends AbstractActionController {
         if (!$slug) {
             return $this->redirect()->toRoute('mvitauction');
         }
+        try {
+            $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
+        } catch (Exception $e) {
+            return $this->redirect()->toRoute('mvitauction');
+        }
+
         $bid = new Bid();
 
         $form = new BidForm();
         $form->bind($bid);
 
-        $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
         $bids = "";
 
         foreach ($this->getBidTable()->getBidsByAuction($auction->id) as $bid) {

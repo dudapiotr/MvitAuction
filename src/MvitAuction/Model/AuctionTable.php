@@ -166,6 +166,9 @@ class AuctionTable extends AbstractTableGateway  {
         if ($id == 0) {
             $data['A_Created'] = time();
             $this->insert($data);
+	    $iid = $this->lastInsertValue;
+	    $data = array('A_Slug' => $this->toAscii($iid." ".$auction->header));
+	    $this->update($data, array('A_Id' => $iid));
         } else {
             if ($this->getAuctionById($id)) {
                 $this->update($data, array('A_Id' => $id));
