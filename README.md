@@ -7,6 +7,7 @@ This modules depends on ZfcUser.
 Version 0.1
 - Adding and editing auctions.
 - Placing bids.
+- View counter.
 
 
 
