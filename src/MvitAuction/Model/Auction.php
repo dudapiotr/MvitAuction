@@ -66,7 +66,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'id',
                 'required' => false,
-		'filters'  => array(
+                'filters'  => array(
                     array('name' => 'Int'),
                 ),
             )));
@@ -74,7 +74,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'user_id',
                 'required' => false,
-		'filters'  => array(
+                'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
@@ -82,7 +82,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'category_id',
                 'required' => true,
-		'filters'  => array(
+                'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
@@ -98,7 +98,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'created',
                 'required' => false,
-		'filters'  => array(
+                'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
@@ -114,7 +114,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'updated',
                 'required' => false,
-		'filters'  => array(
+                'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));
@@ -122,12 +122,9 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'price',
                 'required' => true,
-		'validators' => array(
+                'validators' => array(
                     array(
                         'name'    => 'float',
-#                        'options' => array(
-#                            'locale' => 'en_GB'
-#                        ),
                     ),
                 ),
             )));
@@ -138,9 +135,6 @@ class Auction {
                 'validators' => array(
                     array(
                         'name'    => 'float',
-#                        'options' => array(
-#                            'locale' => 'en_GB'
-#                        ),
                     ),
                 ),
             )));
@@ -148,7 +142,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'slug',
                 'required' => false,
-		'filters'  => array(
+                'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
@@ -178,8 +172,8 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'header',
-                 'required' => true,
-		 'filters'  => array(
+                'required' => true,
+                'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
@@ -210,7 +204,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'body',
                 'required' => true,
-		'filters'  => array(
+                'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
@@ -233,7 +227,7 @@ class Auction {
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'protection',
                 'required' => false,
-		'filters'  => array(
+                'filters'  => array(
                     array('name' => 'int'),
                 ),
             )));

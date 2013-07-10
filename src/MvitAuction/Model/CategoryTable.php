@@ -101,4 +101,3 @@ class CategoryTable extends AbstractTableGateway  {
         $this->tableGateway->delete(array('AC_Id' => $id));
     }
 }
-

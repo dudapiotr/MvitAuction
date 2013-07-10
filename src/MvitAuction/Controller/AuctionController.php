@@ -84,7 +84,7 @@ class AuctionController extends AbstractActionController {
         try {
             $auction = $this->getAuctionTable()->getAuctionBySlug($slug);
         } catch (Exception $e) {
-	    return $this->redirect()->toRoute('mvitauction');
+            return $this->redirect()->toRoute('mvitauction');
         }
 
         if (!$this->zfcUserAuthentication()->getIdentity()->getId() == $auction->user_id) {
