@@ -28,6 +28,7 @@ class AuctionTable extends AbstractTableGateway  {
                                        'created' => 'A_Created',
                                        'end_time' => 'A_EndTime',
                                        'updated' => 'A_Updated',
+                                       'views' => 'A_Views',
                                        'price' => 'A_Price',
                                        'bid' => new Expression ($subquery),
                                        'bid_count' => new Expression ($subquerycount),
@@ -58,6 +59,7 @@ class AuctionTable extends AbstractTableGateway  {
                                        'created' => 'A_Created',
                                        'end_time' => 'A_EndTime',
                                        'updated' => 'A_Updated',
+                                       'views' => 'A_Views',
                                        'price' => 'A_Price',
                                        'buyout' => 'A_Buyout',
                                        'bid' => new Expression ($subquery),
@@ -90,6 +92,7 @@ class AuctionTable extends AbstractTableGateway  {
                                        'created' => 'A_Created',
                                        'end_time' => 'A_EndTime',
                                        'updated' => 'A_Updated',
+                                       'views' => 'A_Views',
                                        'price' => 'A_Price',
                                        'buyout' => 'A_Buyout',
                                        'bid' => new Expression ($subquery),
@@ -122,6 +125,7 @@ class AuctionTable extends AbstractTableGateway  {
                                        'created' => 'A_Created',
                                        'end_time' => 'A_EndTime',
                                        'updated' => 'A_Updated',
+                                       'views' => 'A_Views',
                                        'price' => 'A_Price',
                                        'buyout' => 'A_Buyout',
                                        'bid' => new Expression ($subquery),
@@ -142,6 +146,10 @@ class AuctionTable extends AbstractTableGateway  {
         return $rowset;
     }
 
+    public function increaseAuctionViews($id) {
+        $this->update(array('A_Views' => new Expression('A_Views + 1')), array('A_Id' => $id));
+    }
+
     public function saveAuction(Auction $auction) {
         $data = array(
             'A_UserId' => $auction->user_id,
@@ -150,6 +158,7 @@ class AuctionTable extends AbstractTableGateway  {
             'A_Created' => $auction->created,
             'A_Endtime' => $auction->end_time,
             'A_Updated' => time(),
+            'A_Views' => $auction->views,
             'A_Price' => $auction->price,
             'A_Buyout' => $auction->buyout,
             'A_Slug' => $this->toAscii($auction->header),

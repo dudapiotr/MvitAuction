@@ -229,6 +229,9 @@ class AuctionController extends AbstractActionController {
             $bids[] = $bid;
         }
 
+        $this->getAuctionTable()->increaseAuctionViews($auction->id);
+        $auction->views++;
+
         return new ViewModel(array(
             'auction' => $auction,
             'currency' => $this->getCurrencyTable()->getCurrencyById($auction->currency_id),

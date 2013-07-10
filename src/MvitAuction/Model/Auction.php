@@ -16,6 +16,7 @@ class Auction {
     public $created;
     public $end_time;
     public $updated;
+    public $views;
     public $price;
     public $buyout;
     public $bid;
@@ -28,7 +29,7 @@ class Auction {
 
     public function exchangeArray($data) {
         if (isset($data['category']['id'])) { $data['category_id'] = $data['category']['id']; }
-	if (isset($data['currency']['id'])) { $data['currency_id'] = $data['currency']['id']; }
+        if (isset($data['currency']['id'])) { $data['currency_id'] = $data['currency']['id']; }
         $this->id             = (isset($data['id'])) ? $data['id'] : null;
         $this->user_id        = (isset($data['user_id'])) ? $data['user_id'] : null;
         $this->category_id    = (isset($data['category_id'])) ? $data['category_id'] : null;
@@ -38,6 +39,7 @@ class Auction {
         $this->created        = (isset($data['created'])) ? $data['created'] : null;
         $this->end_time       = (isset($data['end_time'])) ? $data['end_time'] : null;
         $this->updated        = (isset($data['updated'])) ? $data['updated'] : null;
+        $this->views          = (isset($data['views'])) ? $data['views'] : null;
         $this->price          = (isset($data['price'])) ? $data['price'] : null;
         $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : null;
         $this->bid            = (isset($data['bid'])) ? $data['bid'] : null;
