@@ -78,4 +78,12 @@ class Module implements FormElementProviderInterface {
             ),
         );
     }
+
+    public function getViewHelperConfig()   {
+        return array(
+            'invokables' => array(
+                'relativeTime' => 'MvitAuction\View\Helper\RelativeTime',
+            )
+        );
+    }
 }
