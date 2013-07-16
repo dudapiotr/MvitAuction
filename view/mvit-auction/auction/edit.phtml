@@ -8,6 +8,9 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('mvitauction/edit', array('slug' => $this->slug,)));
 $form->prepare();
 
+$form->get('price')->setValue($this->numberFormat($form->get('price')->getValue()));
+$form->get('buyout')->setValue($this->numberFormat($form->get('buyout')->getValue()));
+
 echo $this->form()->openTag($form)."\n";
 echo $this->formHidden($form->get('id'))."\n";
 echo $this->formHidden($form->get('user_id'))."\n";

@@ -28,6 +28,7 @@ class Auction {
     protected $inputFilter;
 
     public function exchangeArray($data) {
+        $float_filter = new \Zend\I18n\Filter\NumberFormat();
         if (isset($data['category']['id'])) { $data['category_id'] = $data['category']['id']; }
         if (isset($data['currency']['id'])) { $data['currency_id'] = $data['currency']['id']; }
         $this->id             = (isset($data['id'])) ? $data['id'] : null;
@@ -40,8 +41,8 @@ class Auction {
         $this->end_time       = (isset($data['end_time'])) ? $data['end_time'] : null;
         $this->updated        = (isset($data['updated'])) ? $data['updated'] : null;
         $this->views          = (isset($data['views'])) ? $data['views'] : null;
-        $this->price          = (isset($data['price'])) ? $data['price'] : null;
-        $this->buyout         = (isset($data['buyout'])) ? $data['buyout'] : null;
+        $this->price          = (isset($data['price'])) ? $float_filter->filter($data['price']) : null;
+        $this->buyout         = (isset($data['buyout'])) ? $float_filter->filter($data['buyout']) : null;
         $this->bid            = (isset($data['bid'])) ? $data['bid'] : null;
         $this->bid_count      = (isset($data['bid_count'])) ? $data['bid_count'] : null;
         $this->slug           = (isset($data['slug'])) ? $data['slug'] : null;

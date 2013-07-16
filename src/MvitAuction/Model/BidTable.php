@@ -67,7 +67,7 @@ class BidTable extends AbstractTableGateway  {
         return $resultSet;
     }
 
-    public function getHighestBidByAuction($auction) {
+    public function getHighestBidByAuctionId($auction) {
         $auction = (int) $auction;
         $resultSet = $this->select(function (Select $select) use ($auction) {
                 $select->columns(array('id' => 'AB_Id',
@@ -82,13 +82,10 @@ class BidTable extends AbstractTableGateway  {
                        ->order('auction_bid.AB_Bid DESC')->limit(1);
             });
         $row = $resultSet->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $id");
-        }
         return $row;
     }
 
-    public function getBidsByUser($user) {
+    public function getBidsByUserId($user) {
         $user = (int) $user;
         $resultSet = $this->select(function (Select $select) use ($user) {
                 $select->columns(array('id' => 'AB_Id',

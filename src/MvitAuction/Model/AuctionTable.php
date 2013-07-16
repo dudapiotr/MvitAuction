@@ -180,6 +180,7 @@ class AuctionTable extends AbstractTableGateway  {
             $this->update($data, array('A_Id' => $iid));
         } else {
             if ($this->getAuctionById($id)) {
+                $data['A_Slug'] = $this->toAscii($auction->id." ".$auction->header);
                 $this->update($data, array('A_Id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
