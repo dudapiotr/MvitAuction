@@ -19,7 +19,7 @@ class CategoryTable extends AbstractTableGateway  {
 
     public function fetchAll() {
         $resultSet = $this->select(function (Select $select) {
-                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id)";
+                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id AND A_EndTime > UNIX_TIMESTAMP())";
                 $select->columns(array('id' => 'AC_Id',
                                        'parent' => 'AC_Parent',
                                        'name' => 'AC_Name',
@@ -36,7 +36,7 @@ class CategoryTable extends AbstractTableGateway  {
     public function getCategoryById($id) {
         $id = (int) $id;
         $resultSet = $this->select(function (Select $select) use ($id) {
-                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id)";
+                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id AND A_EndTime > UNIX_TIMESTAMP())";
                 $select->columns(array('id' => 'AC_Id',
                                        'parent' => 'AC_Parent',
                                        'name' => 'AC_Name',
@@ -57,7 +57,7 @@ class CategoryTable extends AbstractTableGateway  {
     public function getCategoryBySlug($slug) {
         $slug = (string) $slug;
         $resultSet = $this->select(function (Select $select) use ($slug) {
-                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id)";
+                $subquery = "(SELECT COUNT(*) FROM auction WHERE auction.A_CategoryId = auction_category.AC_Id AND A_EndTime > UNIX_TIMESTAMP())";
                 $select->columns(array('id' => 'AC_Id',
                                        'parent' => 'AC_Parent',
                                        'name' => 'AC_Name',
