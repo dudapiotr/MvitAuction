@@ -66,7 +66,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'id',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
@@ -74,7 +74,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'user_id',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
@@ -98,7 +98,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'created',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
@@ -108,13 +108,14 @@ class Auction {
                 'name'     => 'end_time',
                 'required' => true,
                 'filters'  => array(
-                    array('name' => 'int'),
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'updated',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),
@@ -132,7 +133,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'buyout',
-                'required' => false,
+                'required' => true,
                 'validators' => array(
                     array(
                         'name'    => 'float',
@@ -142,7 +143,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'slug',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
@@ -227,7 +228,7 @@ class Auction {
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'protection',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'int'),
                 ),

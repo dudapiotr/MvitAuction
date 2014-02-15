@@ -39,9 +39,9 @@ class AuctionTable extends AbstractTableGateway  {
                                       )
                                 )
                        ->join('auction_category', 'auction.A_CategoryId = auction_category.AC_Id', array('category_name' => 'AC_Name', 'category_slug' => 'AC_Slug',))
-                       ->order('auction.A_EndTime DESC')->limit(30);
+                       ->order('auction.A_EndTime')->limit(30);
                 if ($activeOnly == true) {
-                    $select->where('A_EndTime > ?', time());
+                    $select->where->greaterThan('auction.A_EndTime', new Expression('NOW()'));
                 }
             });
         return $resultSet;
@@ -113,7 +113,7 @@ class AuctionTable extends AbstractTableGateway  {
         return $row;
     }
 
-    public function getAuctionByCategoryId($id = 0, $activeOnly = true) {
+    public function getAuctionsByCategoryId($id = 0, $activeOnly = true) {
         $id = (int) $id;
         $rowset = $this->select(function (Select $select) use ($id, $activeOnly) {
                 $subquery = "(SELECT AB_Bid FROM auction_bid WHERE auction_bid.AB_AuctionId = auction.A_Id ORDER BY AB_Id DESC LIMIT 1)";
@@ -138,9 +138,9 @@ class AuctionTable extends AbstractTableGateway  {
                                 )
                        ->join('auction_category', 'auction.A_CategoryId = auction_category.AC_Id', array('category_name' => 'AC_Name', 'category_slug' => 'AC_Slug',))
                        ->where(array('A_CategoryId' => $id))
-                       ->order('auction.A_EndTime DESC');
-                if ($activeOnly == false) {
-                    $select->where('A_EndTime < ?', time());
+                       ->order('auction.A_EndTime');
+                if ($activeOnly == true) {
+                    $select->where->greaterThan('auction.A_EndTime', new Expression('NOW()'));
                 }
             });
         return $rowset;
@@ -157,7 +157,7 @@ class AuctionTable extends AbstractTableGateway  {
             'A_CurrencyId' => $auction->currency_id,
             'A_Created' => $auction->created,
             'A_Endtime' => $auction->end_time,
-            'A_Updated' => time(),
+            'A_Updated' => new Expression('NOW()'),
             'A_Views' => $auction->views,
             'A_Price' => $auction->price,
             'A_Buyout' => $auction->buyout,
